@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>~ OldWebs.com ~ | The Focus Coach AI</title>
+    <!-- Подключаем наш общий ретро-стиль -->
     <link rel="stylesheet" href="style.css">
     
+    <!-- Дополнительные стилы для терминала -->
     <style>
         .terminal {
             background-color: #000000;
@@ -70,16 +72,31 @@
                     outputDiv.innerHTML = '> ERROR: Input field is blank! Are you a NOOB?';
                     return;
                 }
+                
+                // Функция для подсчета предложений (простая, по точкам)
+                function countSentences(text) {
+                    return (text.match(/[\.!\?]/g) || []).length;
+                }
 
-                // ВРЕМЕННЫЙ ОФФЛАЙН РЕЖИМ (Пока я настраиваю реальный прокси)
+                // ВРЕМЕННЫЙ ОФФЛАЙН РЕЖИМ (С продающим "Premium Hint")
                 if (PROXY_URL.includes('YOUR_ACTUAL_PROXY_LINK_HERE')) {
-                    const wordCount = input.split(/\s+/).filter(word => word.length > 0).length;
+                    const words = input.split(/\s+/).filter(word => word.length > 0);
+                    const wordCount = words.length;
+                    const sentenceCount = countSentences(input);
                     
-                    outputDiv.innerHTML = '> OFFLINE MODE: The Focus Coach is optimizing its cache. <br><br> **HINT:** Your current text is **' + wordCount + ' words** long. Try to focus on one main idea per paragraph. (Connect to Premium for full analysis!)';
-                    return; // Выходим, не делая реальный вызов
+                    // Расчет средней длины предложения
+                    const avgSentenceLength = sentenceCount > 0 ? Math.round(wordCount / sentenceCount) : wordCount;
+
+                    outputDiv.innerHTML = '> OFFLINE MODE: The Focus Coach is currently in BASIC mode. <br><br>' +
+                                          '**BASIC ANALYSIS:**<br>' +
+                                          `> Words: **${wordCount}**<br>` +
+                                          `> Sentences: **${sentenceCount}**<br>` +
+                                          `> Average Sentence Length: **${avgSentenceLength} words** (Suggestion: Aim for 12-15 for high impact).<hr>` +
+                                          '**PREMIUM HINT (AI-Tone Check):** Your tone sounds **"Hesitant"**. A great article needs a **"Confident"** or **"Informative"** tone. Upgrade to get the full Tone, Structure, and Goal report!';
+                    return; 
                 }
                 
-                // --- РЕАЛЬНЫЙ КОД БУДЕТ ЗДЕСЬ (Как только прокси будет готов) ---
+                // --- РЕАЛЬНЫЙ КОД БУДЕТ ЗДЕСЬ ---
                 
                 outputDiv.innerHTML = '> CONNECTING TO AI SERVER... (May take a moment to load the wisdom of the ancients...)';
                 submitButton.disabled = true;
