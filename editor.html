@@ -57,31 +57,67 @@
         </div>
         
         <script>
-            // Это заглушка. Здесь потом будет реальный код, который мы подключим.
-            function runAITranslation() {
-                const input = document.getElementById('inputText').value;
-                const outputDiv = document.getElementById('outputResult');
-                
-                if (input.trim() === '') {
-                    outputDiv.innerHTML = '> ERROR: Input field is blank! Are you a NOOB?';
-                    return;
-                }
+    // Здесь будет ссылка на мой бесплатный прокси-сервис
+    const PROXY_URL = 'https://YOUR_ACTUAL_PROXY_LINK_HERE'; 
 
-                // Имитация работы AI: 3 секунды задержка, как на модеме.
-                outputDiv.innerHTML = '> PROCESSING... DIAL-UP SOUNDS... (Please Wait)';
+    function runAITranslation() {
+        const input = document.getElementById('inputText').value.trim();
+        const outputDiv = document.getElementById('outputResult');
+        
+        if (input === '') {
+            outputDiv.innerHTML = '> ERROR: Input field is blank! Are you a NOOB?';
+            return;
+        }
 
-                setTimeout(() => {
-                    // Это наш временный AI-промпт!
-                    const result = `> OUTPUT COMPLETE. 
-                    
-> Your modern text has been converted:
-"OMG! ${input.toUpperCase()} IS SO WACK! Just use a free host, you total NOOB! PWNED! ;) Don't be a square, dude! Check out our cool links."`;
-                    
-                    outputDiv.innerHTML = result;
-                }, 3000); // 3000 миллисекунд = 3 секунды
+        // 1. Показываем аутентичную загрузку
+        outputDiv.innerHTML = '> CONNECTING TO AI SERVER... (Might cost more than 1 cent!)';
+
+        // 2. Блокируем кнопку, чтобы избежать спама и траты бесплатных кредитов
+        const submitButton = document.querySelector('input[type="submit"]');
+        submitButton.disabled = true;
+
+        // 3. Вызов реального (или имитированного) API
+        fetch(PROXY_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: input })
+        })
+        .then(response => {
+            if (!response.ok) {
+                // Если прокси не отвечает, используем мощный хайп
+                return Promise.resolve({ 
+                    converted: '> 💀 CRITICAL ERROR! The AI terminal just fried the server! The results were too PHAT to handle. Try again later.' 
+                });
             }
-        </script>
+            return response.json();
+        })
+        .then(data => {
+            // Если все хорошо, показываем результат
+            outputDiv.innerHTML = '> [ CONVERSION COMPLETE ]\n\n' + data.converted;
+        })
+        .catch(error => {
+            // На случай реальной ошибки, объясняем это в стиле 90-х
+            outputDiv.innerHTML = `> 💾 DISK READ ERROR. Check your 
+            <a href="https://en.wikipedia.org/wiki/DNS_record" style="color:red; text-decoration: underline;">DNS settings</a>. This is totally WACK.`;
+        })
+        .finally(() => {
+            // 4. Разблокируем кнопку
+            submitButton.disabled = false;
+        });
+    }
 
+    // Для первого запуска мы временно вернемся к заглушке!
+    if (PROXY_URL.includes('YOUR_ACTUAL_PROXY_LINK_HERE')) {
+        document.querySelector('input[type="submit"]').onclick = function() {
+            const input = document.getElementById('inputText').value.trim();
+            const outputDiv = document.getElementById('outputResult');
+            outputDiv.innerHTML = '> OFFLINE MODE: The AI is currently on a floppy disk. Please check back when we hit 1000 users! ;)';
+        };
+    }
+
+</script>
     </div>
 
 </body>
