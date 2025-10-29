@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>~ OldWebs.com ~ | HIT COUNTER BUILDER</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Стили для формы генератора */
+        .generator-form {
+            background-color: #000000;
+            color: #00FF00;
+            border: 3px solid #FF00FF;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            margin-top: 20px;
+        }
+        .generator-form input[type="text"], 
+        .generator-form select {
+            background-color: #000000;
+            color: #00FF00;
+            border: 1px solid #00FF00;
+            padding: 5px;
+            margin: 5px 0 15px 0;
+            width: 98%;
+            font-family: 'Courier New', monospace;
+        }
+        .generator-form label {
+            display: block;
+            margin-top: 10px;
+            color: #FFFF00;
+        }
+        .generator-form button {
+            background-color: #FF00FF;
+            color: #000000;
+            border: 2px solid #FFFF00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-size: 18px;
+        }
+        .output-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed #00FFFF;
+            background-color: #000000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>📈 HIT COUNTER BUILDER v1.0 📈</h1>
+        <p align="center" style="color: #FF00FF;">(Get your own authentic, slow-loading, dial-up ready visitor GIF!)</p>
+        
+        <hr> 
+        <div class="navigation">
+            <a href="index.html">🏠 HOME</a> | 
+            <a href="posts.html">🆕 READ POSTINGS</a> | 
+            <a href="editor.html" class="ai-link">✍️ THE FOCUS COACH AI</a> |
+            <a href="counter.html" style="color: #FFFF00;">📈 HIT COUNTER BUILDER</a>
+            <hr>
+        </div>
+
+        <div class="generator-form">
+            <h2>STEP 1: Customize Your Counter</h2>
+            
+            <label for="initialCount">Start Count:</label>
+            <input type="text" id="initialCount" value="1000" maxlength="6">
+
+            <label for="counterStyle">Counter Style (Choose Your Flavor):</label>
+            <select id="counterStyle">
+                <option value="style1">Classic Blue Digits (Default)</option>
+                <option value="style2">Fiery Red Pixels</option>
+                <option value="style3">Green Matrix Code</option>
+            </select>
+            
+            <label for="linkURL">Link this Counter to your OldWebs Post:</label>
+            <input type="text" id="linkURL" value="https://andrei-director.github.io/OldWebs/post1.html">
+
+            <button onclick="generateCounter()">GENERATE COUNTER CODE</button>
+
+            <div class="output-box" id="outputBox">
+                > Your code will appear here after clicking GENERATE.
+            </div>
+
+            <h2 style="margin-top: 20px;">STEP 2: See Your New Counter!</h2>
+            <div align="center" style="margin-top: 10px;">
+                <img id="previewImage" src="https://placehold.co/100x20/000/FFF?text=PREVIEW" alt="Counter Preview">
+            </div>
+
+        </div>
+        
+        <script>
+            // Фейковые GIF-ки для стилей
+            const counterImages = {
+                'style1': 'https://i.imgur.com/8Q9Z4QJ.gif', // Original blue
+                'style2': 'https://placehold.co/100x20/FF0000/FFFFFF?text=99999',
+                'style3': 'https://placehold.co/100x20/00FF00/000000?text=10101',
+            };
+
+            function generateCounter() {
+                const count = document.getElementById('initialCount').value || '1000';
+                const style = document.getElementById('counterStyle').value;
+                const url = document.getElementById('linkURL').value;
+                const imageUrl = counterImages[style];
+                
+                // Обновляем превью
+                const previewImage = document.getElementById('previewImage');
+                previewImage.src = imageUrl;
+                previewImage.alt = `Counter: ${count}`;
+
+                // Генерируем HTML-код
+                const htmlCode = 
+`<a href="${url}" target="_blank">
+  <img src="${imageUrl}" alt="OldWebs Hit Counter" border="0" width="88" height="31">
+</a>
+<!-- REMEMBER: This counter is FAKE. But your Focus is REAL! -->`;
+                
+                // Генерируем код для вывода в терминале
+                const outputText = `> [SUCCESS] Your Counter is Ready!\n` +
+                                   `> Initial Count: ${count}\n` +
+                                   `> Style: ${style}\n` +
+                                   `> Copy and Paste this HTML code to your GeoCities, Blogspot, or WordPress site:\n\n` +
+                                   htmlCode;
+
+                document.getElementById('outputBox').innerText = outputText;
+            }
+        </script>
+        
+        <p align="center" style="margin-top: 20px;">
+            <img src="https://i.imgur.com/uR1PjB9.gif" alt="Mail Me" width="88" height="31">
+            <img src="https://i.imgur.com/8Q9Z4QJ.gif" alt="Visitor Counter">
+        </p>
+
+    </div>
+
+</body>
+</html>
