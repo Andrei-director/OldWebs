@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>~ OldWebs.com ~ | Editor 3000 AI</title>
+    <title>~ OldWebs.com ~ | The Focus Coach AI</title>
     <link rel="stylesheet" href="style.css">
     
     <style>
@@ -34,22 +34,23 @@
 
     <div class="container">
 
-        <h1>🤖 EDITOR 3000 AI TERMINAL 🤖</h1>
-        <p align="center" style="color: #FF00FF;">(Powered by next-gen Artificial Intelligence from 1999!)</p>
+        <h1>✍️ THE FOCUS COACH AI ✍️</h1>
+        <p align="center" style="color: #FF00FF;">(AI-powered analysis to maximize clarity and impact.)</p>
         
         <hr> 
         <div class="navigation">
             <a href="index.html">🏠 HOME</a> | 
-            <a href="posts.html">🆕 NEW POSTINGS</a> | 
-            <a href="editor.html" class="ai-link">🤖 EDITOR 3000 AI TERMINAL</a>
+            <a href="posts.html">🆕 READ POSTINGS</a> | 
+            <a href="editor.html" class="ai-link">✍️ THE FOCUS COACH AI</a>
             <hr>
         </div>
 
         <div class="terminal">
-            <p>COMMAND PROMPT: > Enter your boring modern text below:</p>
+            <p>COMMAND PROMPT: > Enter your text for analysis below:</p>
             
-            <textarea id="inputText" rows="5" placeholder="Example: My startup is struggling with finding cheap hosting."></textarea>
-            <input type="submit" value="[ TRANSLATE TO 90s SLANG ]" onclick="runAITranslation()">
+            <textarea id="inputText" rows="5" placeholder="Example: I need to write a post, but I keep getting distracted by my email and social media notifications."></textarea>
+            
+            <input type="submit" value="[ ANALYZE FOR FOCUS AND CLARITY ]" onclick="runAITranslation()">
             
             <div class="ai-result" id="outputResult">
                 > Awaiting input...
@@ -57,67 +58,50 @@
         </div>
         
         <script>
-    // Здесь будет ссылка на мой бесплатный прокси-сервис
-    const PROXY_URL = 'https://YOUR_ACTUAL_PROXY_LINK_HERE'; 
+            // ВРЕМЕННЫЙ ПРОКСИ URL: Здесь будет ссылка на мой реальный, бесплатный AI-прокси
+            const PROXY_URL = 'https://YOUR_ACTUAL_PROXY_LINK_HERE'; 
 
-    function runAITranslation() {
-        const input = document.getElementById('inputText').value.trim();
-        const outputDiv = document.getElementById('outputResult');
-        
-        if (input === '') {
-            outputDiv.innerHTML = '> ERROR: Input field is blank! Are you a NOOB?';
-            return;
-        }
+            function runAITranslation() {
+                const input = document.getElementById('inputText').value.trim();
+                const outputDiv = document.getElementById('outputResult');
+                const submitButton = document.querySelector('input[type="submit"]');
 
-        // 1. Показываем аутентичную загрузку
-        outputDiv.innerHTML = '> CONNECTING TO AI SERVER... (Might cost more than 1 cent!)';
+                if (input === '') {
+                    outputDiv.innerHTML = '> ERROR: Input field is blank! Are you a NOOB?';
+                    return;
+                }
 
-        // 2. Блокируем кнопку, чтобы избежать спама и траты бесплатных кредитов
-        const submitButton = document.querySelector('input[type="submit"]');
-        submitButton.disabled = true;
+                // ВРЕМЕННЫЙ ОФФЛАЙН РЕЖИМ (Пока я настраиваю реальный прокси)
+                if (PROXY_URL.includes('YOUR_ACTUAL_PROXY_LINK_HERE')) {
+                    const wordCount = input.split(/\s+/).filter(word => word.length > 0).length;
+                    
+                    outputDiv.innerHTML = '> OFFLINE MODE: The Focus Coach is optimizing its cache. <br><br> **HINT:** Your current text is **' + wordCount + ' words** long. Try to focus on one main idea per paragraph. (Connect to Premium for full analysis!)';
+                    return; // Выходим, не делая реальный вызов
+                }
+                
+                // --- РЕАЛЬНЫЙ КОД БУДЕТ ЗДЕСЬ (Как только прокси будет готов) ---
+                
+                outputDiv.innerHTML = '> CONNECTING TO AI SERVER... (May take a moment to load the wisdom of the ancients...)';
+                submitButton.disabled = true;
 
-        // 3. Вызов реального (или имитированного) API
-        fetch(PROXY_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ text: input })
-        })
-        .then(response => {
-            if (!response.ok) {
-                // Если прокси не отвечает, используем мощный хайп
-                return Promise.resolve({ 
-                    converted: '> 💀 CRITICAL ERROR! The AI terminal just fried the server! The results were too PHAT to handle. Try again later.' 
+                fetch(PROXY_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: input })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    outputDiv.innerHTML = '> [ ANALYSIS COMPLETE ]\n\n' + data.converted;
+                })
+                .catch(error => {
+                    outputDiv.innerHTML = `> 🚨 CRITICAL ERROR: Could not reach the server. Check your connection. This is totally WACK.`;
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
                 });
             }
-            return response.json();
-        })
-        .then(data => {
-            // Если все хорошо, показываем результат
-            outputDiv.innerHTML = '> [ CONVERSION COMPLETE ]\n\n' + data.converted;
-        })
-        .catch(error => {
-            // На случай реальной ошибки, объясняем это в стиле 90-х
-            outputDiv.innerHTML = `> 💾 DISK READ ERROR. Check your 
-            <a href="https://en.wikipedia.org/wiki/DNS_record" style="color:red; text-decoration: underline;">DNS settings</a>. This is totally WACK.`;
-        })
-        .finally(() => {
-            // 4. Разблокируем кнопку
-            submitButton.disabled = false;
-        });
-    }
+        </script>
 
-    // Для первого запуска мы временно вернемся к заглушке!
-    if (PROXY_URL.includes('YOUR_ACTUAL_PROXY_LINK_HERE')) {
-        document.querySelector('input[type="submit"]').onclick = function() {
-            const input = document.getElementById('inputText').value.trim();
-            const outputDiv = document.getElementById('outputResult');
-            outputDiv.innerHTML = '> OFFLINE MODE: The AI is currently on a floppy disk. Please check back when we hit 1000 users! ;)';
-        };
-    }
-
-</script>
     </div>
 
 </body>
