@@ -1,68 +1,148 @@
-/* Применяем ко всей странице */
+/* Reset basic */
+body, h1, h2, h3, p, ul, li, a, form, button {
+  margin: 0;
+  padding: 0;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Body */
 body {
-    /* Наш фон "Космос" 90-х */
-    background-image: url('https://i.imgur.com/7HwA41P.gif');
-    font-family: "Times New Roman", Times, serif;
-    color: #00FF00; /* Ярко-зеленый */
+  background: linear-gradient(120deg, #00f, #0ff);
+  color: #fff;
+  text-align: center;
 }
 
-/* Наш "центральный" контейнер */
-.container {
-    width: 800px; 
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #000033; 
-    border: 5px dashed #FF00FF; /* Ярко-розовая пунктирная */
-    padding: 15px;
-    margin-top: 20px;
+/* Hero Block */
+#hero {
+  padding: 100px 20px;
+  position: relative;
 }
 
-/* Заголовок H1 - КРИЧАЩИЙ */
-/* Заголовок H1 - БРЕНД (Убрали мигание) */
-h1 {
-    color: #FFFF00; 
-    font-family: "Comic Sans MS", cursive, sans-serif; 
-    text-align: center;
+#hero h1 {
+  font-size: 4em;
+  text-shadow: 2px 2px #000;
+  margin-bottom: 20px;
 }
 
-/* CSS-код для мигания */
-@keyframes blink-animation {
-    to {
-        visibility: hidden;
-    }
+#hero p {
+  font-size: 1.5em;
+  margin-bottom: 30px;
 }
 
-a {
-    color: #00FFFF;
-}
-/* Делаем ссылки навигации ОЧЕНЬ заметными */
-.navigation a {
-    /* Неоново-желтый на синем — идеальный контраст */
-    color: #FF00FF; 
-    text-decoration: none; /* Убираем подчеркивание */
-    font-weight: bold;
-    font-size: 18px;
-}
-
-/* При наведении ссылки должны мигать! */
-.navigation a:hover {
-    color: #FFFF00; /* Яркий желтый */
-    text-decoration: underline;
-    /* Добавляем мигание при наведении */
-    animation: blink-animation 0.5s steps(2, start) infinite;
+.enter-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #ff0;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  border: 3px solid #000;
+  transition: all 0.3s;
 }
 
-/* Отдельный стиль для нашей AI-кнопки */
-.ai-link {
-    color: #00FFFF; /* Голубой */
-}
-/* Стиль для списка преимуществ */
-.product-pitch ul {
-    list-style-type: square;
-    margin: 20px auto;
-    width: 80%;
+.enter-btn:hover {
+  background-color: #fff;
+  color: #f00;
+  transform: scale(1.1);
 }
 
-.product-pitch li {
-    padding: 5px 0;
+.retro-gif img {
+  margin-top: 30px;
+  width: 150px;
+  animation: float 3s infinite alternate;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-10px); }
+}
+
+/* Features Block */
+#features {
+  padding: 50px 20px;
+  background-color: #222;
+}
+
+#features h2 {
+  margin-bottom: 20px;
+}
+
+#features ul li {
+  list-style: none;
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+/* Quizzes Preview */
+#quizzes {
+  padding: 50px 20px;
+  background-color: #444;
+}
+
+.quiz-card {
+  background-color: #666;
+  padding: 20px;
+  margin: 20px auto;
+  width: 300px;
+  border: 2px solid #fff;
+}
+
+.quiz-card h3 {
+  margin-bottom: 10px;
+}
+
+.quiz-card a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff0;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid #000;
+}
+
+.quiz-card a:hover {
+  background-color: #fff;
+  color: #f00;
+}
+
+/* Interactive Quiz */
+section[id^="quiz-"] {
+  padding: 50px 20px;
+  background-color: #333;
+}
+
+section[id^="quiz-"] h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+section[id^="quiz-"] form {
+  display: inline-block;
+  text-align: left;
+  background-color: #555;
+  padding: 20px;
+  border: 2px solid #fff;
+}
+
+section[id^="quiz-"] button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: #ff0;
+  color: #000;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+section[id^="quiz-"] button:hover {
+  background-color: #fff;
+  color: #f00;
+}
+
+/* Footer */
+footer {
+  padding: 30px 20px;
+  background-color: #111;
+  font-size: 0.9em;
 }
