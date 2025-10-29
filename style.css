@@ -35,3 +35,24 @@ h1 {
 a {
     color: #00FFFF;
 }
+/* Делаем ссылки навигации ОЧЕНЬ заметными */
+.navigation a {
+    /* Неоново-желтый на синем — идеальный контраст */
+    color: #FF00FF; 
+    text-decoration: none; /* Убираем подчеркивание */
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* При наведении ссылки должны мигать! */
+.navigation a:hover {
+    color: #FFFF00; /* Яркий желтый */
+    text-decoration: underline;
+    /* Добавляем мигание при наведении */
+    animation: blink-animation 0.5s steps(2, start) infinite;
+}
+
+/* Отдельный стиль для нашей AI-кнопки */
+.ai-link {
+    color: #00FFFF; /* Голубой */
+}
