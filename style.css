@@ -18,11 +18,11 @@ body {
 }
 
 /* Заголовок H1 - КРИЧАЩИЙ */
+/* Заголовок H1 - БРЕНД (Убрали мигание) */
 h1 {
-    color: #FFFF00; /* Желтый */
+    color: #FFFF00; 
     font-family: "Comic Sans MS", cursive, sans-serif; 
     text-align: center;
-    animation: blink-animation 1s steps(2, start) infinite;
 }
 
 /* CSS-код для мигания */
