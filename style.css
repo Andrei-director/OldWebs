@@ -344,3 +344,40 @@ footer {
   transform: rotate(-1deg) scale(1.05);
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
+/* Hover-анимация кнопок */
+.enter-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #ff0;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  border: 3px solid #000;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.enter-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.3);
+  transition: all 0.5s;
+}
+.enter-btn:hover::after { left: 0; }
+.enter-btn:hover { background-color:#fff; color:#f00; transform:scale(1.1); }
+
+/* Hover-анимация карточек */
+.quiz-card {transition: all 0.3s;}
+.quiz-card:hover {transform: rotate(-1deg) scale(1.05); box-shadow:0 5px 15px rgba(0,0,0,0.5); background-color:#888;}
+
+/* Hero заголовок анимация */
+#hero h1 {animation:pulse 2s infinite;}
+@keyframes pulse {0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
+
+/* Sparkle GIF */
+.sparkle {width:100px; position:absolute; top:20px; right:20px; animation:spin 4s linear infinite;}
+@keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
