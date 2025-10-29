@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>~ OldWebs.com ~ | Editor 3000 AI</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .terminal {
+            background-color: #000000;
+            color: #00FF00;
+            border: 3px solid #00FF00;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+        }
+        textarea, input[type="submit"] {
+            background-color: #000000;
+            color: #00FF00;
+            border: 1px solid #00FF00;
+            width: 95%; 
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+            padding: 5px;
+        }
+        .ai-result {
+            margin-top: 20px;
+            border-top: 1px dashed #FF00FF;
+            padding-top: 10px;
+            white-space: pre-wrap; /* Сохраняем форматирование для "терминала" */
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>🤖 EDITOR 3000 AI TERMINAL 🤖</h1>
+        <p align="center" style="color: #FF00FF;">(Powered by next-gen Artificial Intelligence from 1999!)</p>
+        
+        <hr> 
+        <div class="navigation">
+            <a href="index.html">🏠 HOME</a> | 
+            <a href="posts.html">🆕 NEW POSTINGS</a> | 
+            <a href="editor.html" class="ai-link">🤖 EDITOR 3000 AI TERMINAL</a>
+            <hr>
+        </div>
+
+        <div class="terminal">
+            <p>COMMAND PROMPT: > Enter your boring modern text below:</p>
+            
+            <textarea id="inputText" rows="5" placeholder="Example: My startup is struggling with finding cheap hosting."></textarea>
+            <input type="submit" value="[ TRANSLATE TO 90s SLANG ]" onclick="runAITranslation()">
+            
+            <div class="ai-result" id="outputResult">
+                > Awaiting input...
+            </div>
+        </div>
+        
+        <script>
+            // Это заглушка. Здесь потом будет реальный код, который мы подключим.
+            function runAITranslation() {
+                const input = document.getElementById('inputText').value;
+                const outputDiv = document.getElementById('outputResult');
+                
+                if (input.trim() === '') {
+                    outputDiv.innerHTML = '> ERROR: Input field is blank! Are you a NOOB?';
+                    return;
+                }
+
+                // Имитация работы AI: 3 секунды задержка, как на модеме.
+                outputDiv.innerHTML = '> PROCESSING... DIAL-UP SOUNDS... (Please Wait)';
+
+                setTimeout(() => {
+                    // Это наш временный AI-промпт!
+                    const result = `> OUTPUT COMPLETE. 
+                    
+> Your modern text has been converted:
+"OMG! ${input.toUpperCase()} IS SO WACK! Just use a free host, you total NOOB! PWNED! ;) Don't be a square, dude! Check out our cool links."`;
+                    
+                    outputDiv.innerHTML = result;
+                }, 3000); // 3000 миллисекунд = 3 секунды
+            }
+        </script>
+
+    </div>
+
+</body>
+</html>
