@@ -1,0 +1,37 @@
+/* Применяем ко всей странице */
+body {
+    /* Наш фон "Космос" 90-х */
+    background-image: url('https://i.imgur.com/7HwA41P.gif');
+    font-family: "Times New Roman", Times, serif;
+    color: #00FF00; /* Ярко-зеленый */
+}
+
+/* Наш "центральный" контейнер */
+.container {
+    width: 800px; 
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #000033; 
+    border: 5px dashed #FF00FF; /* Ярко-розовая пунктирная */
+    padding: 15px;
+    margin-top: 20px;
+}
+
+/* Заголовок H1 - КРИЧАЩИЙ */
+h1 {
+    color: #FFFF00; /* Желтый */
+    font-family: "Comic Sans MS", cursive, sans-serif; 
+    text-align: center;
+    animation: blink-animation 1s steps(2, start) infinite;
+}
+
+/* CSS-код для мигания */
+@keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+
+a {
+    color: #00FFFF;
+}
