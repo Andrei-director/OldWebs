@@ -56,3 +56,13 @@ a {
 .ai-link {
     color: #00FFFF; /* Голубой */
 }
+/* Стиль для списка преимуществ */
+.product-pitch ul {
+    list-style-type: square;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.product-pitch li {
+    padding: 5px 0;
+}
