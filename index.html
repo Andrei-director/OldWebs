@@ -5,6 +5,38 @@
   <title>OldWebs – Retro Quizzes Hub</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+<script>
+function calculateQuiz1() {
+  const q1 = document.querySelector('#quiz-1 input[name="q1"]:checked');
+  const q2 = document.querySelector('#quiz-1 input[name="q2"]:checked');
+  const q3 = document.querySelector('#quiz-1 input[name="q3"]:checked');
+  if(!q1||!q2||!q3){ alert("Answer all!"); return; }
+  let score={MySpace:0, GeoCities:0, LiveJournal:0};
+  [q1.value,q2.value,q3.value].forEach(a=>{score[a]!==undefined?score[a]++:0;});
+  let max=Math.max(score.MySpace,score.GeoCities,score.LiveJournal);
+  let res=(score.MySpace===max)?"You are MySpace!":(score.GeoCities===max)?"You are GeoCities!":"You are LiveJournal!";
+  document.getElementById("quizResult1").innerText=res;
+}
+
+function calculateQuiz2() {
+  const q1 = document.querySelector('#quiz-2 input[name="q1"]:checked');
+  const q2 = document.querySelector('#quiz-2 input[name="q2"]:checked');
+  const q3 = document.querySelector('#quiz-2 input[name="q3"]:checked');
+  if(!q1||!q2||!q3){ alert("Answer all!"); return; }
+  let res=(q1.value==="Dial-Up")?"You are a Dial-Up Pioneer!":"You are a Broadband Early Adopter!";
+  document.getElementById("quizResult2").innerText=res;
+}
+
+function calculateQuiz3() {
+  const q1 = document.querySelector('#quiz-3 input[name="q1"]:checked');
+  const q2 = document.querySelector('#quiz-3 input[name="q2"]:checked');
+  const q3 = document.querySelector('#quiz-3 input[name="q3"]:checked');
+  if(!q1||!q2||!q3){ alert("Answer all!"); return; }
+  let res="Your homepage would be: "+q1.value+", Counter: "+q2.value+", Guestbook: "+q3.value;
+  document.getElementById("quizResult3").innerText=res;
+}
+</script>
+
 <body>
   <!-- =======================
        Hero Block
@@ -68,6 +100,65 @@
       <a href="#quiz-3">Play Now</a>
     </div>
   </section>
+<!-- Quiz 1 -->
+<section id="quiz-1">
+  <h2>Which 2000s Website Are You?</h2>
+  <form id="quizForm1">
+    <p>1. Your favorite browser?</p>
+    <label><input type="radio" name="q1" value="MySpace"> MySpace</label><br>
+    <label><input type="radio" name="q1" value="GeoCities"> GeoCities</label><br>
+    <label><input type="radio" name="q1" value="LiveJournal"> LiveJournal</label>
+    <p>2. Favorite online activity?</p>
+    <label><input type="radio" name="q2" value="Chatting"> Chatting</label><br>
+    <label><input type="radio" name="q2" value="Gaming"> Gaming</label><br>
+    <label><input type="radio" name="q2" value="Blogging"> Blogging</label>
+    <p>3. Preferred music source?</p>
+    <label><input type="radio" name="q3" value="MP3 Downloads"> MP3 Downloads</label><br>
+    <label><input type="radio" name="q3" value="Radio"> Radio</label><br>
+    <label><input type="radio" name="q3" value="Napster"> Napster</label>
+    <br>
+    <button type="button" onclick="calculateQuiz1()">See Your Result</button>
+  </form>
+  <div id="quizResult1" style="margin-top:20px; font-weight:bold;"></div>
+</section>
+
+<!-- Quiz 2 -->
+<section id="quiz-2">
+  <h2>What Retro Internet Era Are You From?</h2>
+  <form id="quizForm2">
+    <p>1. Preferred connection type?</p>
+    <label><input type="radio" name="q1" value="Dial-Up"> Dial-Up</label><br>
+    <label><input type="radio" name="q1" value="Broadband"> Broadband</label><br>
+    <p>2. Favorite chat platform?</p>
+    <label><input type="radio" name="q2" value="ICQ"> ICQ</label><br>
+    <label><input type="radio" name="q2" value="MSN"> MSN</label><br>
+    <p>3. Favorite entertainment?</p>
+    <label><input type="radio" name="q3" value="Flash Games"> Flash Games</label><br>
+    <label><input type="radio" name="q3" value="Forums"> Forums</label><br>
+    <br>
+    <button type="button" onclick="calculateQuiz2()">See Your Result</button>
+  </form>
+  <div id="quizResult2" style="margin-top:20px; font-weight:bold;"></div>
+</section>
+
+<!-- Quiz 3 -->
+<section id="quiz-3">
+  <h2>Build Your 2000s Homepage</h2>
+  <form id="quizForm3">
+    <p>1. Page heading?</p>
+    <label><input type="radio" name="q1" value="Welcome to MySpace!"> Welcome to MySpace!</label><br>
+    <label><input type="radio" name="q1" value="My GeoCities Corner"> My GeoCities Corner</label><br>
+    <p>2. Visitor counter style?</p>
+    <label><input type="radio" name="q2" value="Classic"> Classic</label><br>
+    <label><input type="radio" name="q2" value="Digital"> Digital</label><br>
+    <p>3. Guestbook?</p>
+    <label><input type="radio" name="q3" value="Yes"> Yes</label><br>
+    <label><input type="radio" name="q3" value="No"> No</label><br>
+    <br>
+    <button type="button" onclick="calculateQuiz3()">See Your Result</button>
+  </form>
+  <div id="quizResult3" style="margin-top:20px; font-weight:bold;"></div>
+</section>
 
   <!-- =======================
        Quiz 1
