@@ -2,48 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Web2000.ai – Relive the Web 2000s!</title>
+  <title>OldWebs – Retro Quizzes Hub</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Hero Block -->
+  <!-- =======================
+       Блок 1: Hero
+       ======================= -->
   <section id="hero">
-    <h1>Web2000.ai</h1>
+    <h1>OldWebs</h1>
     <p>Dive into the nostalgia of the early internet. Quizzes, fun & old-school vibes — no algorithms, just you.</p>
-    <a href="#quizzes" class="enter-btn">ENTER THE SITE</a>
-    <div class="retro-gif"></div>
+    <a href="#features" class="enter-btn">ENTER THE SITE</a>
+    <div class="retro-gif">
+      <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Retro stars GIF">
+    </div>
   </section>
 
-  <!-- Features Section -->
+  <!-- =======================
+       Блок 2: Features
+       ======================= -->
   <section id="features">
-    <h2>Why Web2000.ai?</h2>
+    <h2>Why OldWebs?</h2>
     <ul>
-      <li>🎮 Retro-styled quizzes</li>
+      <li>🎮 Play retro-styled quizzes</li>
       <li>💾 Create & share your own quizzes</li>
       <li>🕹️ Relive the early web vibes</li>
     </ul>
   </section>
 
-  <!-- Quizzes Preview -->
+  <!-- =======================
+       Блок 3: Quizzes Preview
+       ======================= -->
   <section id="quizzes">
     <h2>Popular Quizzes</h2>
     <div class="quiz-card">
       <h3>Which 2000s Website Are You?</h3>
-      <a href="#">Play Now</a>
+      <a href="#quiz-1">Play Now</a>
     </div>
     <div class="quiz-card">
       <h3>What Retro Internet Era Are You From?</h3>
-      <a href="#">Play Now</a>
+      <a href="#quiz-2">Play Now</a>
     </div>
     <div class="quiz-card">
       <h3>Build Your 2000s Homepage</h3>
-      <a href="#">Play Now</a>
+      <a href="#quiz-3">Play Now</a>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- =======================
+       Блок 4: Interactive Quiz 1
+       ======================= -->
+  <section id="quiz-1">
+    <h2>Which 2000s Website Are You?</h2>
+    <form id="quizForm1">
+      <p>1. Your favorite browser?</p>
+      <label><input type="radio" name="q1" value="MySpace"> MySpace</label><br>
+      <label><input type="radio" name="q1" value="GeoCities"> GeoCities</label><br>
+      <label><input type="radio" name="q1" value="LiveJournal"> LiveJournal</label>
+
+      <p>2. Favorite online activity?</p>
+      <label><input type="radio" name="q2" value="Chatting"> Chatting</label><br>
+      <label><input type="radio" name="q2" value="Gaming"> Gaming</label><br>
+      <label><input type="radio" name="q2" value="Blogging"> Blogging</label>
+
+      <p>3. Preferred music source?</p>
+      <label><input type="radio" name="q3" value="MP3 Downloads"> MP3 Downloads</label><br>
+      <label><input type="radio" name="q3" value="Radio"> Radio</label><br>
+      <label><input type="radio" name="q3" value="Napster"> Napster</label>
+
+      <br>
+      <button type="button" onclick="calculateQuiz1()">See Your Result</button>
+    </form>
+    <div id="quizResult1" style="margin-top:20px; font-weight:bold;"></div>
+  </section>
+
+  <!-- =======================
+       Footer
+       ======================= -->
   <footer>
-    <p>© 2025 Web2000.ai | Powered by GitHub Pages</p>
+    <p>© 2025 OldWebs | Powered by GitHub Pages</p>
   </footer>
+
+  <!-- =======================
+       JS для первого квиза
+       ======================= -->
+  <script>
+  function calculateQuiz1() {
+    const q1 = document.querySelector('input[name="q1"]:checked');
+    const q2 = document.querySelector('input[name="q2"]:checked');
+    const q3 = document.querySelector('input[name="q3"]:checked');
+
+    if (!q1 || !q2 || !q3) {
+      alert("Please answer all questions!");
+      return;
+    }
+
+    let score = { MySpace:0, GeoCities:0, LiveJournal:0 };
+
+    [q1.value, q2.value, q3.value].forEach(answer => {
+      if (answer === "MySpace") score.MySpace++;
+      else if (answer === "GeoCities") score.GeoCities++;
+      else if (answer === "LiveJournal") score.LiveJournal++;
+    });
+
+    let max = Math.max(score.MySpace, score.GeoCities, score.LiveJournal);
+    let result;
+    if (score.MySpace === max) result = "You are MySpace!";
+    else if (score.GeoCities === max) result = "You are GeoCities!";
+    else result = "You are LiveJournal!";
+
+    document.getElementById("quizResult1").innerText = result;
+  }
+  </script>
 </body>
 </html>
