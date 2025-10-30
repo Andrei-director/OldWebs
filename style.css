@@ -1,101 +1,37 @@
-/* --- Global Reset & Core Web 1.0 Aesthetics --- */
 body {
-    background-color: #000000; /* Черный экран, основа ретро-терминала */
-    color: #00FF00; /* Неоновый зеленый текст */
-    font-family: 'Courier New', Courier, monospace;
-    margin: 0;
-    padding: 20px 0; /* Вертикальный отступ для центрирования */
-    font-size: 14px; /* Мелкий шрифт для аутентичности */
-    line-height: 1.5;
+  background: #000; /* для MS-DOS */;
+  color: #39FF14;   /* кислотно-зеленый текст, как в DOS */;
+  font-family: 'Consolas', 'Courier New', monospace;
+  margin: 0;
+  padding: 0;
 }
 
-/* Контейнер: Центрирование и ограниченная ширина */
-.container {
-    max-width: 650px;
-    margin: 0 auto;
-    padding: 0 10px;
-    border: 1px solid #00FF00; /* Зеленая рамка вокруг контента */
-    box-shadow: 0 0 10px #00FF00; /* Эффект неонового свечения */
+h1, h2, h3 {
+  font-family: 'MS Sans Serif', 'Arial', sans-serif;
+  color: #0ff;
+  text-shadow: 1px 1px 0 #003;
 }
 
-/* Заголовки */
-h1 {
-    color: #FF00FF; /* Пурпурный акцент для главного заголовка */
-    text-align: center;
-    text-shadow: 0 0 5px #FF00FF; /* Эффект свечения */
-    border-bottom: 2px solid #FF00FF;
-    padding-bottom: 10px;
-}
-h3 {
-    margin-top: 15px;
-    margin-bottom: 5px;
-    color: #00FFFF; /* Голубой для заголовков постов */
-}
-
-/* Горизонтальная линия */
-hr {
-    border: none;
-    border-top: 1px dashed #00FF00; /* Пунктирная зеленая линия */
-    margin: 15px 0;
-}
-
-/* Гиперссылки */
 a {
-    color: #00FF00; /* По умолчанию зеленый */
-    text-decoration: none;
-}
-a:hover {
-    color: #FF00FF; /* Пурпурный при наведении */
-    text-decoration: underline;
+  color: #f0f;
+  text-decoration: underline;
 }
 
-/* Навигация */
-.navigation {
-    text-align: center;
-    padding: 10px 0;
-}
-.navigation a {
-    padding: 0 8px;
-    white-space: nowrap;
-}
-.ai-link {
-    font-weight: bold;
-    color: #00FFFF; /* Выделить ссылку на AI */
+.button, input[type="button"], button {
+  border: 2px solid #fff;
+  background-color: #111;
+  color: #ff0;
+  font-family: inherit;
+  font-size: 1.2em;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #fff, 4px 4px 0 #08f;
+  margin: 2px;
+  padding: 6px 16px;
 }
 
-/* Список постов */
-.post-item {
-    padding: 10px 0;
-    /* Убираем нижнюю линию, так как ее уже дает HR */
-}
-.post-item h3 a {
-    color: #00FFFF;
-    text-decoration: none;
-}
-.post-item p {
-    margin: 3px 0;
-    font-size: 13px;
-}
-
-/* Анимация мигающего текста для привлечения внимания (MUST READ) */
-.post-item h3 span {
-    font-weight: bold;
-    animation: blink-effect 1s step-end infinite;
-}
-
-@keyframes blink-effect {
-    50% { opacity: 0; }
-}
-
-/* Адаптивность для мобильных устройств */
-@media (max-width: 680px) {
-    .container {
-        border: none;
-        padding: 0 5px;
-        max-width: 100%;
-        box-shadow: none;
-    }
-    body {
-        padding: 10px 0;
-    }
+hr {
+  border: 0;
+  height: 8px;
+  background: url('https://i.imgur.com/Jb2pLfX.gif'); /* пиксельная gif-анимация */
+  margin: 20px 0;
 }
