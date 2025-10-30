@@ -66,7 +66,6 @@
       color: #0ff;
       box-shadow: 1px 1px 0 #00f;
     }
-    /* Бликующий юзер */
     .chat-user {
       color: #ffff77;
       font-weight: bold;
@@ -77,13 +76,11 @@
       font-weight: bold;
       text-shadow: 0 0 6px #0ff,0 0 10px #01f0;
     }
-    /* Сообщения */
     .msg-date {
       font-size:0.82em;
       color:#2ff;
       margin-right:5px;
     }
-    /* Ретро-звук */
     audio {
       display:none;
     }
@@ -93,52 +90,49 @@
   <div class="container">
     <div class="retro-frame">
       <marquee scrollamount="11" behavior="alternate">
-        <span class="blink">🔸 OLDWEBS AI CHAT - Nostalgia mode! 🔸</span>
+        <span class="blink">🔸 OLDWEBS AI COMPANION - Nostalgia Mode! 🔸</span>
       </marquee>
     </div>
     <hr class="pixel-hr">
 
-    <!-- ОПИСАНИЕ и инструкции для пользователей -->
+    <!-- Welcome text & instructions -->
     <p align="center" style="margin-bottom:23px;">
-      Добро пожаловать в чат-компаньон эпохи Windows 98-2000!<br>
-      Спроси что угодно — <b>бот ответит как олдскульный юзер из прошлого века</b>.<br>
-      Смайлики: :) :-), пиксель-юмор, винтажные мемы и диалог из эпохи модемов.
+      Welcome to the Retro Chat Companion!<br>
+      Ask anything — <b>the bot will chat with you like an old Internet friend from the 90s/2000s.</b><br>
+      Expect smileys, pixel humor, ASCII art, and classic dial-up geek vibes. Enjoy!
     </p>
 
     <div class="chatbox-frame">
       <div id="chatlog" class="chat-log">
-        <div><span class="chat-bot">[BOT]</span>: Привет! Я твой чат-компаньон из 1999-го. Готов поболтать о жизни, MP3 и ICQ 😊</div>
+        <div><span class="chat-bot">[BOT]</span>: Hi there! I'm your internet buddy from 1999. Ready to chat about dial-up, MP3s, and good old times 😊</div>
       </div>
       <div class="chat-input-zone">
-        <input type="text" id="userinput" maxlength="200" placeholder="Введи свой вопрос или приветствие (Enter)">
-        <button class="chat-pixel-btn" id="sendbtn">Отправить</button>
+        <input type="text" id="userinput" maxlength="200" placeholder="Type your message (Press Enter)">
+        <button class="chat-pixel-btn" id="sendbtn">Send</button>
       </div>
       <audio id="msgsound" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12f020178d.mp3" preload="auto"></audio>
       <audio id="botsound" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12f020178d.mp3" preload="auto"></audio>
     </div>
 
     <div align="center" style="margin-top:17px;">
-      <a href="index.html" class="pixel-btn">← На главную</a>
+      <a href="index.html" class="pixel-btn">← Back to Home</a>
     </div>
   </div>
 
-  <!-- Чат-логика: без серверного AI, мок ответы как олд-интернет, позже добавим настоящий AI -->
   <script>
-    // Массив фраз-ответов
+    // Example set of witty/cool retro bot replies (you can expand them!)
     const oldwebBotReplies = [
-      "Помнишь, как скачивали картинки… по 10 минут? :-)",
-      "Поставь мне плюс в гостевой, если понравился сайт!",
-      "В те годы я обновлял страницу с помощью F5, а ты?",
-      "Скорость твоего диал-апа: 56k. Структурируем ответ как в FAQ на старом сайте.",
-      "Хочешь mp3? Заходи на форум, там есть секреты ;-)",
-      "ICQ UIN: #//OLDWEB Решил вопрос — ставь смайлик :D",
-      "Тыц-тыц — новый чат! Не забудь добавить сайт в избранное!"
+      "Remember waiting for images to load... one pixel at a time? ;-)",
+      "Shout out in my guestbook if you like this site!",
+      "Back then I refreshed the page with F5. Old-school hacks!",
+      "Your dial-up speed: 56k. Expect your answer in... a while! ;)",
+      "Looking for MP3s? Head over to the secret forum board!",
+      "ICQ UIN: #999999 (not real) — send me a smiley! :D",
+      "Tzzzzt—NEW CHAT! Don't forget to bookmark us like it's 1998!"
     ];
 
     function botReply(userText) {
-      // Можно добавить генерацию ответа на базе текста пользователя (или запросить AI позже)
       let rnd = Math.floor(Math.random() * oldwebBotReplies.length);
-      // Юмор: периодически вставлять рандомные old-web цитаты
       return oldwebBotReplies[rnd];
     }
 
