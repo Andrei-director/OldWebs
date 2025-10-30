@@ -7,17 +7,31 @@
 </head>
 <body>
   <div class="container">
-    <h1><marquee scrollamount="10" behavior="alternate" style="color:#0ff;">~ NEW POSTINGS ~</marquee></h1>
-    <hr>
+
+    <!-- Ретро-заголовок с marquee и blink -->
+    <div class="retro-frame">
+      <marquee scrollamount="12" behavior="alternate">
+        <span class="blink">★ ~ NEW POSTINGS ~ ★</span>
+      </marquee>
+    </div>
+
+    <!-- Пиксельная линия -->
+    <hr class="pixel-hr">
     <img src="https://i.imgur.com/GjDqM9q.gif" alt="Pixel Divider" style="width:100%;">
-    <hr>
+    <hr class="pixel-hr">
+
+    <!-- Навигация -->
     <div class="navigation">
       <a href="index.html">🏠 HOME</a> |
       <a href="posts.html">🆕 NEW POSTINGS</a> |
       <a href="editor.html" class="ai-link">✍️ THE FOCUS COACH AI</a> |
       <a href="counter.html">📈 HIT COUNTER BUILDER</a>
     </div>
-    <hr>
+
+    <!-- Ещё один разделитель -->
+    <hr class="pixel-hr">
+
+    <!-- Список постов -->
     <div class="post-listing">
       <div class="post-item">
         <h3>
@@ -48,10 +62,23 @@
         <p>We need <b>50 early adopters</b> to crush our bugs and help us define the Premium AI features. Join the movement!</p>
       </div>
       <p align="center">
-        <a href="#">[ Load More Postings ]</a>
+        <a href="#" class="pixel-btn">[ LOAD MORE POSTINGS ]</a>
       </p>
     </div>
-    <p align="center" style="margin-top:22px;">
+
+    <!-- Декор-гифка -->
+    <img class="deco-gif" src="https://i.imgur.com/r2u3HkN.gif" alt="Retro Sparkle" width="85">
+
+    <!-- Гостевая книга ретро -->
+    <p class="guestbook">
+      <img src="https://www.gifss.com/computers/old/gifss.com-old-5.gif" width="48" height="16" alt="sign guestbook">
+      <a href="#">Sign my guestbook</a>
+      <img src="https://www.gifss.com/computers/old/gifss.com-old-32.gif" width="40" height="16" alt="see guestbook">
+      <a href="#">See guestbook</a>
+    </p>
+
+    <!-- Пиксельные кнопки Mail me и Netscape -->
+    <p align="center" style="margin-top:24px;">
       <img src="https://i.imgur.com/uR1PjB9.gif" alt="Mail Me" width="88" height="31">
       <img src="https://i.imgur.com/G1gRz7l.gif" alt="Best Viewed with Netscape" width="88" height="31">
     </p>
