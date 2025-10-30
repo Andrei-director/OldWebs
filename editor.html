@@ -1,126 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>~ OldWebs.com ~ | The Focus Coach AI</title>
-    <!-- Подключаем наш общий ретро-стиль -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Дополнительные стилы для терминала -->
-    <style>
-        .terminal {
-            background-color: #000000;
-            color: #00FF00;
-            border: 3px solid #00FF00;
-            padding: 20px;
-            font-family: 'Courier New', monospace;
-        }
-        textarea, input[type="submit"] {
-            background-color: #000000;
-            color: #00FF00;
-            border: 1px solid #00FF00;
-            width: 95%; 
-            margin-bottom: 10px;
-            font-family: 'Courier New', monospace;
-            padding: 5px;
-        }
-        .ai-result {
-            margin-top: 20px;
-            border-top: 1px dashed #FF00FF;
-            padding-top: 10px;
-            white-space: pre-wrap; /* Сохраняем форматирование для "терминала" */
-        }
-    </style>
-    
+  <meta charset="UTF-8">
+  <title>✍️ The Focus Coach AI – OldWebs</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .console-box {
+      background: #08080a;
+      border: 3.5px outset #21a8cc;
+      padding: 22px 6vw 14px 6vw;
+      margin: 38px auto 0 auto;
+      border-radius: 13px;
+      width: 99%;
+      max-width: 650px;
+      min-width: 230px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      color: #39ff14;
+      box-shadow: 0 4px 22px #13e8f855;
+    }
+    .console-title {
+      color: #0ff;
+      font-size: 1.23em;
+      text-shadow: 0 2px 4px #000099;
+      letter-spacing: 2.3px;
+    }
+    .console-prompt {
+      background: #161618;
+      color: #7cffb4;
+      border: 2px inset #0ff4ef;
+      padding: 10px;
+      border-radius: 6px;
+      width: 98%;
+      min-height: 52px;
+      font-size: 1.05em;
+      margin-top: 14px;
+      margin-bottom: 10px;
+    }
+    .console-submit {
+      margin-top: 9px;
+      background: #10116a;
+      color: #f0f000;
+      border: 3px outset #b6ffb6;
+      padding: 8px 24px;
+      border-radius: 7px;
+      font-family: 'Consolas',monospace;
+      font-size: 1.05em;
+      cursor: pointer;
+      transition: all .13s;
+      box-shadow: 2px 2px 0 #13a2;
+      display: inline-block;
+    }
+    .console-submit:hover {
+      background: #191971;
+      color: #0ff;
+      border-style: inset;
+    }
+    .console-output {
+      background: #040404;
+      color: #e1f567;
+      border: 2px inset #28e;
+      padding: 13px 14px;
+      min-height: 48px;
+      margin-top: 16px;
+      font-size: 1.08em;
+      font-family: 'Consolas', monospace;
+      border-radius: 7px;
+      white-space: pre-line;
+      box-shadow: 0 2px 10px #2ff2;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="container">
-
-        <h1>✍️ THE FOCUS COACH AI ✍️</h1>
-        <p align="center" style="color: #FF00FF;">(AI-powered analysis to maximize clarity and impact.)</p>
-        
-        <hr> 
-        <div class="navigation">
-            <a href="index.html">🏠 HOME</a> | 
-            <a href="posts.html">🆕 NEW POSTINGS</a> | 
-            <a href="editor.html" class="ai-link">✍️ THE FOCUS COACH AI</a> |
-            <a href="counter.html">📈 HIT COUNTER BUILDER</a>
-            <hr>
-        </div>
-
-        <div class="terminal">
-            <p>COMMAND PROMPT: > Enter your text for analysis below:</p>
-            
-            <textarea id="inputText" rows="5" placeholder="Example: I need to write a post, but I keep getting distracted by my email and social media notifications."></textarea>
-            
-            <input type="submit" value="[ ANALYZE FOR FOCUS AND CLARITY ]" onclick="runAITranslation()">
-            
-            <div class="ai-result" id="outputResult">
-                > Awaiting input...
-            </div>
-        </div>
-        
-        <script>
-            // ВРЕМЕННЫЙ ПРОКСИ URL: Здесь будет ссылка на мой реальный, бесплатный AI-прокси
-            const PROXY_URL = 'https://YOUR_ACTUAL_PROXY_LINK_HERE'; 
-
-            function runAITranslation() {
-                const input = document.getElementById('inputText').value.trim();
-                const outputDiv = document.getElementById('outputResult');
-                const submitButton = document.querySelector('input[type="submit"]');
-
-                if (input === '') {
-                    outputDiv.innerHTML = '> ERROR: Input field is blank! Are you a NOOB?';
-                    return;
-                }
-                
-                // Функция для подсчета предложений (простая, по точкам)
-                function countSentences(text) {
-                    return (text.match(/[\.!\?]/g) || []).length;
-                }
-
-                // ВРЕМЕННЫЙ ОФФЛАЙН РЕЖИМ (С продающим "Premium Hint")
-                if (PROXY_URL.includes('YOUR_ACTUAL_PROXY_LINK_HERE')) {
-                    const words = input.split(/\s+/).filter(word => word.length > 0);
-                    const wordCount = words.length;
-                    const sentenceCount = countSentences(input);
-                    
-                    // Расчет средней длины предложения
-                    const avgSentenceLength = sentenceCount > 0 ? Math.round(wordCount / sentenceCount) : wordCount;
-
-                    outputDiv.innerHTML = '> OFFLINE MODE: The Focus Coach is currently in BASIC mode. <br><br>' +
-                                          '**BASIC ANALYSIS:**<br>' +
-                                          `> Words: **${wordCount}**<br>` +
-                                          `> Sentences: **${sentenceCount}**<br>` +
-                                          `> Average Sentence Length: **${avgSentenceLength} words** (Suggestion: Aim for 12-15 for high impact).<hr>` +
-                                          '**PREMIUM HINT (AI-Tone Check):** Your tone sounds **"Hesitant"**. A great article needs a **"Confident"** or **"Informative"** tone. Upgrade to get the full Tone, Structure, and Goal report!';
-                    return; 
-                }
-                
-                // --- РЕАЛЬНЫЙ КОД БУДЕТ ЗДЕСЬ ---
-                
-                outputDiv.innerHTML = '> CONNECTING TO AI SERVER... (May take a moment to load the wisdom of the ancients...)';
-                submitButton.disabled = true;
-
-                fetch(PROXY_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: input })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    outputDiv.innerHTML = '> [ ANALYSIS COMPLETE ]\n\n' + data.converted;
-                })
-                .catch(error => {
-                    outputDiv.innerHTML = `> 🚨 CRITICAL ERROR: Could not reach the server. Check your connection. This is totally WACK.`;
-                })
-                .finally(() => {
-                    submitButton.disabled = false;
-                });
-            }
-        </script>
-
+  <div class="container">
+    <div class="retro-frame">
+      <marquee scrollamount="11" behavior="alternate">
+        <span class="blink">✍️ THE FOCUS COACH AI ✍️</span>
+      </marquee>
     </div>
+    <hr class="pixel-hr" />
+    <div class="navigation">
+      <a href="index.html">🏠 HOME</a> |
+      <a href="posts.html">🆕 NEW POSTINGS</a> |
+      <a href="editor.html" class="ai-link">✍️ THE FOCUS COACH AI</a> |
+      <a href="counter.html">📈 HIT COUNTER BUILDER</a>
+      <a href="chat.html" class="pixel-btn" style="font-size:1.13em;">
+        <img src="https://www.gifss.com/computers/old/gifss.com-old-3.gif" width="20" style="vertical-align:middle;margin-right:4px;">
+        Enter Retro Chat
+      </a>
+      <a href="donate.html" class="pixel-btn" style="font-size:1.13em;">💸 Donate</a>
+    </div>
+    <hr class="pixel-hr" />
 
+    <div class="console-box" id="mainconsole">
+      <div class="console-title">COMMAND PROMPT: &gt; Enter your text for analysis below:</div>
+      <textarea id="usertxt" class="console-prompt" rows="5" placeholder="Type your headline or paragraph…"></textarea><br/>
+      <button class="console-submit" onclick="analyze()">Analyze &rarr;</button>
+      <div id="result" class="console-output">&gt; Awaiting input...</div>
+    </div>
+  </div>
+  <script>
+    function analyze() {
+      const txt = document.getElementById('usertxt').value.trim();
+      const result = document.getElementById('result');
+      if (!txt) {
+        result.textContent = '> Please enter some text for analysis!';
+        return;
+      }
+      // Псевдо-анализ, потом подключим AI
+      let length = txt.length;
+      let words = txt.split(/\s+/).filter(Boolean).length;
+      let vibe = [
+        "Classic Web 1.0 – Straightforward, simple language.",
+        "Y2K Style – Some drama and a dash of sparkle.",
+        "Feels like a blog post on GeoCities. Nice!",
+        "Needs more CAPITALS and exclamation marks!!!",
+        "Try adding some emoticons ;-) :-D :-P",
+        "Perfect for posting in an old-school guestbook!"
+      ];
+      let retroTip = vibe[Math.floor(Math.random() * vibe.length)];
+      result.innerHTML = 
+        `<b>Text length:</b> ${length} characters<br>
+         <b>Word count:</b> ${words}<br>
+         <b>RETRO TIP:</b> ${retroTip}`;
+    }
+  </script>
 </body>
 </html>
