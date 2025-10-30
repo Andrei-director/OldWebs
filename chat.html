@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>OldWebs - Retro Chat Companion</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .chatbox-frame {
+      border: 4px solid #33f;
+      background: #171b2b;
+      box-shadow: 0 0 25px #00f5;
+      border-radius: 10px;
+      margin: 0 auto 24px auto;
+      padding: 12px 4vw 6px 4vw;
+      max-width: 650px;
+      min-width: 250px;
+    }
+    .chat-log {
+      background: #111;
+      border: 2px inset #19f9f9;
+      color: #a1ffab;
+      min-height: 180px;
+      max-height: 330px;
+      overflow-y: auto;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 1em;
+      margin-bottom: 12px;
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 0 5px #0ff2;
+      white-space: pre-line;
+    }
+    .chat-input-zone {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .chat-input-zone input {
+      flex: 1;
+      background: #191954;
+      border: 2px inset #0ff;
+      color: #ffe;
+      font-size: 1em;
+      padding: 7px 10px;
+      border-radius: 3px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      outline: none;
+    }
+    .chat-pixel-btn {
+      padding: 8px 20px;
+      border: 3px outset #44f;
+      font-family: 'Courier New', Consolas, monospace;
+      font-size: 1.07em;
+      color: #fff500;
+      background: #23236a;
+      box-shadow: 2px 2px 0 #0089;
+      text-decoration: none;
+      letter-spacing: 1px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all .16s;
+    }
+    .chat-pixel-btn:hover {
+      border-style: inset;
+      background: #300a21;
+      color: #0ff;
+      box-shadow: 1px 1px 0 #00f;
+    }
+    /* Бликующий юзер */
+    .chat-user {
+      color: #ffff77;
+      font-weight: bold;
+      text-shadow: 0 0 5px #ff0,0 0 8px #9999ff;
+    }
+    .chat-bot {
+      color: #00ffe2;
+      font-weight: bold;
+      text-shadow: 0 0 6px #0ff,0 0 10px #01f0;
+    }
+    /* Сообщения */
+    .msg-date {
+      font-size:0.82em;
+      color:#2ff;
+      margin-right:5px;
+    }
+    /* Ретро-звук */
+    audio {
+      display:none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="retro-frame">
+      <marquee scrollamount="11" behavior="alternate">
+        <span class="blink">🔸 OLDWEBS AI CHAT - Nostalgia mode! 🔸</span>
+      </marquee>
+    </div>
+    <hr class="pixel-hr">
+
+    <!-- ОПИСАНИЕ и инструкции для пользователей -->
+    <p align="center" style="margin-bottom:23px;">
+      Добро пожаловать в чат-компаньон эпохи Windows 98-2000!<br>
+      Спроси что угодно — <b>бот ответит как олдскульный юзер из прошлого века</b>.<br>
+      Смайлики: :) :-), пиксель-юмор, винтажные мемы и диалог из эпохи модемов.
+    </p>
+
+    <div class="chatbox-frame">
+      <div id="chatlog" class="chat-log">
+        <div><span class="chat-bot">[BOT]</span>: Привет! Я твой чат-компаньон из 1999-го. Готов поболтать о жизни, MP3 и ICQ 😊</div>
+      </div>
+      <div class="chat-input-zone">
+        <input type="text" id="userinput" maxlength="200" placeholder="Введи свой вопрос или приветствие (Enter)">
+        <button class="chat-pixel-btn" id="sendbtn">Отправить</button>
+      </div>
+      <audio id="msgsound" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12f020178d.mp3" preload="auto"></audio>
+      <audio id="botsound" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12f020178d.mp3" preload="auto"></audio>
+    </div>
+
+    <div align="center" style="margin-top:17px;">
+      <a href="index.html" class="pixel-btn">← На главную</a>
+    </div>
+  </div>
+
+  <!-- Чат-логика: без серверного AI, мок ответы как олд-интернет, позже добавим настоящий AI -->
+  <script>
+    // Массив фраз-ответов
+    const oldwebBotReplies = [
+      "Помнишь, как скачивали картинки… по 10 минут? :-)",
+      "Поставь мне плюс в гостевой, если понравился сайт!",
+      "В те годы я обновлял страницу с помощью F5, а ты?",
+      "Скорость твоего диал-апа: 56k. Структурируем ответ как в FAQ на старом сайте.",
+      "Хочешь mp3? Заходи на форум, там есть секреты ;-)",
+      "ICQ UIN: #//OLDWEB Решил вопрос — ставь смайлик :D",
+      "Тыц-тыц — новый чат! Не забудь добавить сайт в избранное!"
+    ];
+
+    function botReply(userText) {
+      // Можно добавить генерацию ответа на базе текста пользователя (или запросить AI позже)
+      let rnd = Math.floor(Math.random() * oldwebBotReplies.length);
+      // Юмор: периодически вставлять рандомные old-web цитаты
+      return oldwebBotReplies[rnd];
+    }
+
+    function addMsg(isUser, text) {
+      const chatlog = document.getElementById('chatlog');
+      const now = new Date();
+      const timestamp = now.getHours().toString().padStart(2, '0') + ':' +
+                        now.getMinutes().toString().padStart(2, '0');
+      if(isUser) {
+        chatlog.innerHTML += `<div><span class="msg-date">[${timestamp}]</span> <span class="chat-user">[YOU]</span>: ${escapeHtml(text)}</div>`;
+        document.getElementById('msgsound').play();
+      } else {
+        chatlog.innerHTML += `<div><span class="msg-date">[${timestamp}]</span> <span class="chat-bot">[BOT]</span>: ${escapeHtml(text)}</div>`;
+        document.getElementById('botsound').play();
+      }
+      chatlog.scrollTop = chatlog.scrollHeight;
+    }
+
+    function escapeHtml(text){
+      return text.replace(/[<>&"]/g, function(m) { return { "<":"&lt;","~":"&#126;","&":"&amp;","\"":"&quot;" }[m]; });
+    }
+
+    document.getElementById('sendbtn').onclick = sendUserMsg;
+    document.getElementById('userinput').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') sendUserMsg();
+    });
+
+    function sendUserMsg() {
+      const input = document.getElementById('userinput');
+      const txt = input.value.trim();
+      if(!txt) return;
+      addMsg(true, txt);
+      setTimeout(() => addMsg(false, botReply(txt)), 750 + Math.random()*500);
+      input.value = '';
+      input.focus();
+    }
+  </script>
+</body>
+</html>
