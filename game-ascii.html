@@ -177,5 +177,94 @@
       if (e.key === 'Enter') checkAnswer();
     });
   </script>
+  <script>
+  // База ascii-артов и ответов
+  const asciiBanks = [
+    {art: `
+(\\_/)
+( •_•)
+/ >🍪
+    `, answer: ["bunny","rabbit"]},
+    {art: `
+ _____
+|     |
+|     |
+|_____|
+    `, answer: ["floppy","floppy disk","diskette"]},
+    {art: `
+  __
+ /  \\
+| () |
+ \\__/
+    `, answer: ["pacman","pac man","pac-man"]},
+    {art: `
+   __
+  {0`}
+  /|\\
+  / \\
+    `, answer: ["chicken","bird","hen"]},
+    {art: `
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⡀
+⠀⠀⢀⡤⠖⠛⠛⠛⠉⠉⠙⠛⠛⠒⠦⣄
+⠀⡾⡏⠁⠀⠀⢀⣀⣀⡀⠀⠀⠀⠈⢹⢷
+⢸⣇⣤⣶⡿⠿⠿⣿⣟⠻⣿⣶⣤⣤⣼⡇
+⠀⠈⠻⣦⣄⣀⣤⣾⠿⠃⣘⣋⡿⠟⠀
+⠀⠀⢀⡏⢹⣇⣤⣤⣤⡾⢹⡄⠀⠀
+    `, answer: ["cat","nyan cat"]},
+    {art: `
+ .
+/ \\
+| O |
+ \\_/
+  | |
+  |_|
+    `, answer: ["mario","super mario","mario head"]},
+    {art: `
+.--.
+|o_o |
+|:_/ |
+//   \\
+(|     | )
+/\\_   _/\\
+\\_/\\_/\\_/
+    `, answer: ["robot","droid","bot"]}
+  ];
+
+  let currIndex = 0, score = 0;
+  function showArt() {
+    document.getElementById('feedback').textContent = '';
+    const a = asciiBanks[currIndex];
+    document.getElementById('asciiArt').textContent = a.art;
+    document.getElementById('userGuess').value = '';
+    document.getElementById('scoreBlock').textContent = 'Score: ' + score;
+  }
+  function checkAnswer() {
+    const guess = document.getElementById('userGuess').value.trim().toLowerCase();
+    const a = asciiBanks[currIndex];
+    if (!guess) return;
+    if (a.answer.some(ans => guess.includes(ans))) {
+      score++;
+      document.getElementById('feedback').textContent = '✅ YES! Correct!';
+    } else {
+      document.getElementById('feedback').textContent = '❌ Nope! Try again or click ↩';
+    }
+    document.getElementById('scoreBlock').textContent = 'Score: ' + score;
+  }
+  function nextArt() {
+    let newIndex = currIndex;
+    while (asciiBanks.length > 1 && newIndex === currIndex) {
+      newIndex = Math.floor(Math.random()*asciiBanks.length);
+    }
+    currIndex = newIndex;
+    showArt();
+  }
+  // init после создания DOM-элементов
+  window.onload = function() {
+    showArt();
+    document.getElementById('userGuess').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') checkAnswer();
+    });
+  }
+</script>
 </body>
 </html>
