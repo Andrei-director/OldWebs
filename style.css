@@ -1,37 +1,101 @@
 body {
-  background: #000; /* для MS-DOS */;
-  color: #39FF14;   /* кислотно-зеленый текст, как в DOS */;
+  background: #000;
+  color: #39ff14;
   font-family: 'Consolas', 'Courier New', monospace;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
-
-h1, h2, h3 {
+.container {
+  max-width: 920px;
+  margin: 36px auto;
+  background: #111;
+  border: 4px double #0ff;
+  box-shadow: 0 0 40px #08f8, 0 0 0 6px #000 inset;
+  padding: 24px 36px 18px 36px;
+  border-radius: 13px;
+}
+h1 {
   font-family: 'MS Sans Serif', 'Arial', sans-serif;
   color: #0ff;
-  text-shadow: 1px 1px 0 #003;
+  text-shadow: 0 0 13px #0f0, 2px 3px 0 #000;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 2.2em;
 }
 
-a {
-  color: #f0f;
-  text-decoration: underline;
+h3, .post-listing h3 a {
+  font-family: 'MS Sans Serif', 'Arial', sans-serif;
+  color: #FFF;
+  text-shadow: 1px 2px 4px #08f, 0 0 3px #0e4;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 1.15em;
 }
-
-.button, input[type="button"], button {
-  border: 2px solid #fff;
-  background-color: #111;
+.navigation {
+  text-align: center;
+  margin-bottom: 18px;
+  margin-top: 8px;
+  font-size: 1.17em;
+  letter-spacing: 2px;
+}
+.navigation a {
   color: #ff0;
-  font-family: inherit;
-  font-size: 1.2em;
-  cursor: pointer;
-  box-shadow: 2px 2px 0 #fff, 4px 4px 0 #08f;
-  margin: 2px;
-  padding: 6px 16px;
+  text-decoration: underline;
+  font-weight: bold;
+  padding: 0 7px;
+  transition: background 0.2s, color 0.2s;
 }
-
+.navigation a:hover {
+  background: #088;
+  color: #ff34ff;
+  border-radius: 2px;
+}
+.ai-link {
+  color: #fe0 !important;
+  background: #042;
+  padding: 2px 8px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px #fa0;
+}
+.post-listing {
+  margin: 22px 0 14px 0;
+}
+.post-item {
+  background: #1b002a;
+  border: 2px dashed #0ff;
+  border-radius: 8px;
+  padding: 14px 18px 8px 18px;
+  margin-bottom: 19px;
+  box-shadow: 0 0 8px #2fffa1f0;
+}
 hr {
   border: 0;
-  height: 8px;
-  background: url('https://i.imgur.com/Jb2pLfX.gif'); /* пиксельная gif-анимация */
-  margin: 20px 0;
+  height: 6px;
+  background: url('https://i.imgur.com/GjDqM9q.gif') repeat-x;
+  margin: 18px 0;
+}
+a, .post-listing a {
+  color: #0ff;
+  text-decoration: underline;
+  font-size: 1em;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+a:hover, .post-listing a:hover {
+  color: #ff34ff;
+  background: #084;
+  border-radius: 2px;
+}
+img {
+  image-rendering: pixelated;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  background: #222;
+}
+::-webkit-scrollbar-thumb {
+  background: #39ff14;
+  border-radius: 2px;
 }
