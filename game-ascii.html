@@ -89,11 +89,11 @@
       <div class="ascii-art" id="asciiArt"></div>
       <div class="answer-zone">
         <input id="userGuess" type="text" placeholder="Your guess...">
-        <button class="pixel-btn" onclick="checkAnswer()">Guess</button>
+        <button class="pixel-btn" id="guessBtn">Guess</button>
       </div>
       <div id="feedback" style="text-align:center;min-height:26px;font-size:1.09em;color:#0ff;font-family:Verdana;"></div>
       <div class="game-score" id="scoreBlock">Score: 0</div>
-      <button class="pixel-btn" onclick="nextArt()">Next ASCII Art ↩</button>
+      <button class="pixel-btn" id="nextBtn">Next ASCII Art ↩</button>
     </div>
 
     <div align="center" style="margin-top:12px;">
@@ -102,52 +102,18 @@
     </div>
   </div>
   <script>
-    // Небольшая база ascii-артов и ответов (можно легко расширять!)
     const asciiBanks = [
-      {art: `
-        (\\_/)
-        ( •_•)
-        / >🍪         `, answer: ["bunny","rabbit"]},
-      {art: `
-     _____
-    |     |
-    |     |
-    |_____|`, answer: ["floppy","floppy disk","diskette"]},
-      {art: `
-      __
-     /  \\
-    | () |
-     \\__/`, answer: ["pacman","pac man","pac-man"]},
-      {art: `
-   __
-  {0`}
-  /|\\
-  / \\         `, answer: ["chicken","bird","hen"]},
-      {art: `
-     ⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⡀
-     ⠀⠀⢀⡤⠖⠛⠛⠛⠉⠉⠙⠛⠛⠒⠦⣄
-     ⠀⡾⡏⠁⠀⠀⢀⣀⣀⡀⠀⠀⠀⠈⢹⢷
-     ⢸⣇⣤⣶⡿⠿⠿⣿⣟⠻⣿⣶⣤⣤⣼⡇
-     ⠀⠈⠻⣦⣄⣀⣤⣾⠿⠃⣘⣋⡿⠟⠀
-     ⠀⠀⢀⡏⢹⣇⣤⣤⣤⡾⢹⡄⠀⠀        `, answer: ["cat","nyan cat"]},
-      {art: `
-     .
-    / \\
-   | O |
-    \\_/
-      | |
-      |_|        `, answer: ["mario","super mario","mario head"]},
-      {art: `
-   .--.
-  |o_o |
-  |:_/ |
- //   \\ \\
-(|     | )
-/\\_   _/\\
-\\_/\\_/\\_/`, answer: ["robot","droid","bot"]}
+      {art: `(\\_/)\n( •_•)\n/ >🍪`, answer: ["bunny","rabbit"]},
+      {art: ` _____\n|     |\n|     |\n|_____|`, answer: ["floppy","floppy disk","diskette"]},
+      {art: `  __\n /  \\\n| () |\n \\__/`, answer: ["pacman","pac man","pac-man"]},
+      {art: `   __\n  {0\`}\n  /|\\\n  / \\`, answer: ["chicken","bird","hen"]},
+      {art: `⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⡀\n⠀⠀⢀⡤⠖⠛⠛⠛⠉⠉⠙⠛⠛⠒⠦⣄\n⠀⡾⡏⠁⠀⠀⢀⣀⣀⡀⠀⠀⠀⠈⢹⢷\n⢸⣇⣤⣶⡿⠿⠿⣿⣟⠻⣿⣶⣤⣤⣼⡇\n⠀⠈⠻⣦⣄⣀⣤⣾⠿⠃⣘⣋⡿⠟⠀\n⠀⠀⢀⡏⢹⣇⣤⣤⣤⡾⢹⡄⠀⠀`, answer: ["cat","nyan cat"]},
+      {art: ` .\n/ \\\n| O |\n \\_/\n  | |\n  |_|`, answer: ["mario","super mario","mario head"]},
+      {art: `.--.\n|o_o |\n|:_/ |\n//   \\\\ \n(|     | )\n/\\_   _/\\\n\\_/\\_/\\_/`, answer: ["robot","droid","bot"]}
     ];
 
-    let currIndex = 0, score = 0, used = [];
+    let currIndex = 0, score = 0;
+
     function showArt() {
       document.getElementById('feedback').textContent = '';
       const a = asciiBanks[currIndex];
@@ -155,6 +121,7 @@
       document.getElementById('userGuess').value = '';
       document.getElementById('scoreBlock').textContent = 'Score: ' + score;
     }
+
     function checkAnswer() {
       const guess = document.getElementById('userGuess').value.trim().toLowerCase();
       const a = asciiBanks[currIndex];
@@ -167,104 +134,24 @@
       }
       document.getElementById('scoreBlock').textContent = 'Score: ' + score;
     }
+
     function nextArt() {
-      currIndex = Math.floor(Math.random()*asciiBanks.length);
+      let newIndex = currIndex;
+      while (asciiBanks.length > 1 && newIndex === currIndex) {
+        newIndex = Math.floor(Math.random()*asciiBanks.length);
+      }
+      currIndex = newIndex;
       showArt();
     }
-    // init
-    showArt();
-    document.getElementById('userGuess').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') checkAnswer();
-    });
-  </script>
-  <script>
-  // База ascii-артов и ответов
-  const asciiBanks = [
-    {art: `
-(\\_/)
-( •_•)
-/ >🍪
-    `, answer: ["bunny","rabbit"]},
-    {art: `
- _____
-|     |
-|     |
-|_____|
-    `, answer: ["floppy","floppy disk","diskette"]},
-    {art: `
-  __
- /  \\
-| () |
- \\__/
-    `, answer: ["pacman","pac man","pac-man"]},
-    {art: `
-   __
-  {0`}
-  /|\\
-  / \\
-    `, answer: ["chicken","bird","hen"]},
-    {art: `
-⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⡀
-⠀⠀⢀⡤⠖⠛⠛⠛⠉⠉⠙⠛⠛⠒⠦⣄
-⠀⡾⡏⠁⠀⠀⢀⣀⣀⡀⠀⠀⠀⠈⢹⢷
-⢸⣇⣤⣶⡿⠿⠿⣿⣟⠻⣿⣶⣤⣤⣼⡇
-⠀⠈⠻⣦⣄⣀⣤⣾⠿⠃⣘⣋⡿⠟⠀
-⠀⠀⢀⡏⢹⣇⣤⣤⣤⡾⢹⡄⠀⠀
-    `, answer: ["cat","nyan cat"]},
-    {art: `
- .
-/ \\
-| O |
- \\_/
-  | |
-  |_|
-    `, answer: ["mario","super mario","mario head"]},
-    {art: `
-.--.
-|o_o |
-|:_/ |
-//   \\
-(|     | )
-/\\_   _/\\
-\\_/\\_/\\_/
-    `, answer: ["robot","droid","bot"]}
-  ];
 
-  let currIndex = 0, score = 0;
-  function showArt() {
-    document.getElementById('feedback').textContent = '';
-    const a = asciiBanks[currIndex];
-    document.getElementById('asciiArt').textContent = a.art;
-    document.getElementById('userGuess').value = '';
-    document.getElementById('scoreBlock').textContent = 'Score: ' + score;
-  }
-  function checkAnswer() {
-    const guess = document.getElementById('userGuess').value.trim().toLowerCase();
-    const a = asciiBanks[currIndex];
-    if (!guess) return;
-    if (a.answer.some(ans => guess.includes(ans))) {
-      score++;
-      document.getElementById('feedback').textContent = '✅ YES! Correct!';
-    } else {
-      document.getElementById('feedback').textContent = '❌ Nope! Try again or click ↩';
+    window.onload = function() {
+      document.getElementById('guessBtn').onclick = checkAnswer;
+      document.getElementById('nextBtn').onclick = nextArt;
+      document.getElementById('userGuess').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') checkAnswer();
+      });
+      showArt();
     }
-    document.getElementById('scoreBlock').textContent = 'Score: ' + score;
-  }
-  function nextArt() {
-    let newIndex = currIndex;
-    while (asciiBanks.length > 1 && newIndex === currIndex) {
-      newIndex = Math.floor(Math.random()*asciiBanks.length);
-    }
-    currIndex = newIndex;
-    showArt();
-  }
-  // init после создания DOM-элементов
-  window.onload = function() {
-    showArt();
-    document.getElementById('userGuess').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') checkAnswer();
-    });
-  }
-</script>
+  </script>
 </body>
 </html>
