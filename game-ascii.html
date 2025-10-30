@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Guess the ASCII Art! – OldWebs Mini Games</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .game-frame {
+      background: #161423;
+      border: 4px double #0ff;
+      padding: 32px 6vw 20px 6vw;
+      margin: 30px auto 16px auto;
+      border-radius: 14px;
+      max-width: 670px;
+      box-shadow: 0 0 22px #0ffa, 0 0 0 7px #2328 inset;
+      font-family: 'Consolas', monospace;
+      color: #39ff14;
+    }
+    .ascii-art {
+      font-family: 'Consolas',monospace;
+      background: #222;
+      color: #ffea7e;
+      padding: 20px 14px;
+      border-radius: 11px;
+      margin: 16px auto;
+      font-size: 1.18em;
+      text-align: center;
+      box-shadow: 0 0 10px #1848;
+      white-space: pre;
+      max-width: 440px;
+      min-width: 230px;
+    }
+    .answer-zone {
+      margin: 20px 0 10px 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+    }
+    .answer-zone input {
+      font-size: 1.04em;
+      font-family: inherit;
+      background: #120052;
+      color: #fff;
+      padding: 6px 13px;
+      border: 2px inset #6fd;
+      border-radius: 5px;
+      outline: none;
+    }
+    .pixel-btn {
+      font-size: 1.04em;
+    }
+    .game-score {
+      color: #fff36f;
+      font-size: 1.07em;
+      margin-top: 9px;
+      margin-bottom: 14px;
+      letter-spacing: 2px;
+    }
+    .retro-frame {
+      margin-bottom: 10px;
+    }
+    @media (max-width: 612px) {
+      .game-frame { padding:10px 3vw 10px 3vw;}
+      .ascii-art { font-size: 0.93em; padding: 10px 2px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="retro-frame">
+      <marquee scrollamount="13" behavior="alternate">
+        <span class="blink">🎮 Guess the ASCII Art! – Mini Game 🎮</span>
+      </marquee>
+    </div>
+    <hr class="pixel-hr">
+    <div class="navigation">
+      <a href="index.html">🏠 HOME</a> |
+      <a href="game-ascii.html" class="pixel-btn">🎮 Mini Games</a> |
+      <a href="chat.html" class="pixel-btn">💬 Retro Chat</a> |
+      <a href="donate.html" class="pixel-btn">💸 Donate</a>
+    </div>
+    <hr class="pixel-hr" />
+
+    <div class="game-frame">
+      <div style="text-align:center;font-size:1.12em;margin-bottom:8px;">
+        Type your answer (ex: Mario, Pac-Man, Cat, Floppy Disk)
+      </div>
+      <div class="ascii-art" id="asciiArt"></div>
+      <div class="answer-zone">
+        <input id="userGuess" type="text" placeholder="Your guess...">
+        <button class="pixel-btn" onclick="checkAnswer()">Guess</button>
+      </div>
+      <div id="feedback" style="text-align:center;min-height:26px;font-size:1.09em;color:#0ff;font-family:Verdana;"></div>
+      <div class="game-score" id="scoreBlock">Score: 0</div>
+      <button class="pixel-btn" onclick="nextArt()">Next ASCII Art ↩</button>
+    </div>
+
+    <div align="center" style="margin-top:12px;">
+      <img src="https://www.gifss.com/computers/old/gifss.com-old-3.gif" width="32">
+      <a href="index.html" class="pixel-btn">← Back to Home</a>
+    </div>
+  </div>
+  <script>
+    // Небольшая база ascii-артов и ответов (можно легко расширять!)
+    const asciiBanks = [
+      {art: `
+        (\\_/)
+        ( •_•)
+        / >🍪         `, answer: ["bunny","rabbit"]},
+      {art: `
+     _____
+    |     |
+    |     |
+    |_____|`, answer: ["floppy","floppy disk","diskette"]},
+      {art: `
+      __
+     /  \\
+    | () |
+     \\__/`, answer: ["pacman","pac man","pac-man"]},
+      {art: `
+   __
+  {0`}
+  /|\\
+  / \\         `, answer: ["chicken","bird","hen"]},
+      {art: `
+     ⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⡀
+     ⠀⠀⢀⡤⠖⠛⠛⠛⠉⠉⠙⠛⠛⠒⠦⣄
+     ⠀⡾⡏⠁⠀⠀⢀⣀⣀⡀⠀⠀⠀⠈⢹⢷
+     ⢸⣇⣤⣶⡿⠿⠿⣿⣟⠻⣿⣶⣤⣤⣼⡇
+     ⠀⠈⠻⣦⣄⣀⣤⣾⠿⠃⣘⣋⡿⠟⠀
+     ⠀⠀⢀⡏⢹⣇⣤⣤⣤⡾⢹⡄⠀⠀        `, answer: ["cat","nyan cat"]},
+      {art: `
+     .
+    / \\
+   | O |
+    \\_/
+      | |
+      |_|        `, answer: ["mario","super mario","mario head"]},
+      {art: `
+   .--.
+  |o_o |
+  |:_/ |
+ //   \\ \\
+(|     | )
+/\\_   _/\\
+\\_/\\_/\\_/`, answer: ["robot","droid","bot"]}
+    ];
+
+    let currIndex = 0, score = 0, used = [];
+    function showArt() {
+      document.getElementById('feedback').textContent = '';
+      const a = asciiBanks[currIndex];
+      document.getElementById('asciiArt').textContent = a.art;
+      document.getElementById('userGuess').value = '';
+      document.getElementById('scoreBlock').textContent = 'Score: ' + score;
+    }
+    function checkAnswer() {
+      const guess = document.getElementById('userGuess').value.trim().toLowerCase();
+      const a = asciiBanks[currIndex];
+      if (!guess) return;
+      if (a.answer.some(ans => guess.includes(ans))) {
+        score++;
+        document.getElementById('feedback').textContent = '✅ YES! Correct!';
+      } else {
+        document.getElementById('feedback').textContent = '❌ Nope! Try again or click ↩';
+      }
+      document.getElementById('scoreBlock').textContent = 'Score: ' + score;
+    }
+    function nextArt() {
+      currIndex = Math.floor(Math.random()*asciiBanks.length);
+      showArt();
+    }
+    // init
+    showArt();
+    document.getElementById('userGuess').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') checkAnswer();
+    });
+  </script>
+</body>
+</html>
