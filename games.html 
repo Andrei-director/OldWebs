@@ -1,0 +1,14 @@
+<!-- Внутри <body> -->
+<div class="post-listing">
+  <div class="post-item">
+    <img src="https://i.imgur.com/6KdeGtt.gif" width="60" style="float:right;margin-left:14px;">
+    <h3><a href="game-ascii.html">🎮 Guess the ASCII Art!</a></h3>
+    <p>Classic “guess-what” challenge using ASCII icons.</p>
+  </div>
+  <div class="post-item">
+    <img src="https://i.imgur.com/b5WpvFH.gif" width="60" style="float:right;margin-left:14px;">
+    <h3><a href="game-snake.html">🐍 Snake (DOS style)</a></h3>
+    <p>Legendary arcade snake with retro graphics. Use arrows/WASD to win!</p>
+  </div>
+  <!-- Могу сделать “Minesweeper”, “Tetris”, “Number guess”, “Text quest”... -->
+</div>
