@@ -1,208 +1,348 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Space Shooter (DOS style) – OldWebs Mini Games</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .shooter-frame {
-      margin:30px auto 20px auto;
-      background:#111125;
-      border:5px double #0ff;
-      border-radius:13px;
-      box-shadow:0 2px 22px #13e8f855;
-      max-width:480px;
-      min-width:260px;
-      padding:26px 24px 18px 24px;
-      display:flex; flex-direction:column; align-items:center;
-    }
-    #shooterCanvas {
-      background: #1b1b2c;
-      margin:0;
-      box-shadow:0 0 18px #4ef6, 0 0 0 4px #212 inset;
-      border:2px inset #12ff;
-      border-radius:12px;
-      outline:1px solid #0ff;
-      width:320px;
-      height:440px;
-      display:block;
-      margin-bottom: 10px;
-    }
-    .shooter-score {
-      color: #ff0;
-      background: #26262f;
-      font-family: monospace;
-      font-size: 1.08em;
-      border-radius:3px;
-      margin-bottom:14px;
-      margin-top:7px;
-      padding:3px 10px 2px 10px;
-      letter-spacing:2px;
-      border: 2px solid #208888;
-      box-shadow: 0 0 6px #111B;
-      display:inline-block;
-    }
-    .pixel-btn {margin-top: 7px;}
-    .retro-frame {margin-bottom:10px;}
-  </style>
+    <meta charset="UTF-8">
+    <title>Space Shooter (DOS style) – OldWebs Mini Games</title>
+    <style>
+        :root {
+            --color-bg: #111125;
+            --color-frame-border: #0ff;
+            --color-game-bg: #1b1b2c;
+            --color-ship: #0ff;
+            --color-bullet: #ff0;
+            --color-enemy: #fa2;
+            --color-text-retro: #fff36f;
+            --color-score-bg: #26262f;
+            --color-score-border: #208888;
+        }
+        body {
+            background-color: #000;
+            color: var(--color-text-retro);
+            font-family: 'Consolas', monospace; /* Используем моноширинный шрифт для ретро-стиля */
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        /* Общие ретро-элементы */
+        .pixel-hr {
+            border: none;
+            height: 2px;
+            background-color: var(--color-frame-border);
+            margin: 10px 0;
+            box-shadow: 0 0 8px var(--color-frame-border);
+        }
+
+        .pixel-btn {
+            background: #222;
+            border: 2px outset #666;
+            color: var(--color-text-retro);
+            font-family: 'Consolas', monospace;
+            padding: 5px 10px;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-block;
+            transition: background-color 0.2s;
+        }
+        .pixel-btn:hover {
+            background: #444;
+            border: 2px outset #999;
+        }
+
+        .blink {
+            animation: blinker 1s steps(1, end) infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        /* Рамка игры */
+        .shooter-frame {
+            margin: 30px auto 20px auto;
+            background: var(--color-bg);
+            border: 5px double var(--color-frame-border);
+            border-radius: 13px;
+            box-shadow: 0 2px 22px #13e8f855;
+            max-width: 480px;
+            min-width: 260px;
+            padding: 26px 24px 18px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #shooterCanvas {
+            background: var(--color-game-bg);
+            margin: 0;
+            box-shadow: 0 0 18px #4ef6, 0 0 0 4px #212 inset;
+            border: 2px inset #12ff;
+            border-radius: 12px;
+            outline: 1px solid var(--color-frame-border);
+            width: 320px;
+            height: 440px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .shooter-score {
+            color: var(--color-bullet);
+            background: var(--color-score-bg);
+            font-family: monospace;
+            font-size: 1.08em;
+            border-radius: 3px;
+            margin-bottom: 14px;
+            margin-top: 7px;
+            padding: 3px 10px 2px 10px;
+            letter-spacing: 2px;
+            border: 2px solid var(--color-score-border);
+            box-shadow: 0 0 6px #111B;
+            display: inline-block;
+        }
+        .retro-frame {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .retro-frame span {
+            font-size: 1.5em;
+            text-shadow: 0 0 5px var(--color-frame-border);
+        }
+
+        .navigation a {
+            margin: 0 5px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="retro-frame">
-      <marquee scrollamount="12" behavior="alternate">
-        <span class="blink">👾 Space Shooter (DOS Edition) – Mini Game 👾</span>
-      </marquee>
+    <div class="container">
+        <div class="retro-frame">
+            <marquee scrollamount="12" behavior="alternate">
+                <span class="blink">👾 Space Shooter (DOS Edition) – Mini Game 👾</span>
+            </marquee>
+        </div>
+        <hr class="pixel-hr">
+        <div class="navigation" align="center">
+            <a href="index.html" class="pixel-btn">🏠 HOME</a>
+            <a href="games.html" class="pixel-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Terminal_icon_icon.svg/1024px-Terminal_icon_icon.svg.png" width="20" style="vertical-align:middle;margin-right:5px;">
+                🎮 Mini Games
+            </a>
+            <a href="chat.html" class="pixel-btn">
+                <img src="https://www.gifss.com/computers/old/gifss.com-old-3.gif" width="20" style="vertical-align:middle;margin-right:5px;">
+                Retro Chat
+            </a>
+            <a href="donate.html" class="pixel-btn">💸 Donate</a>
+        </div>
+        <hr class="pixel-hr" />
+
+        <div class="shooter-frame">
+            <div style="color:var(--color-text-retro);font-family:'Consolas';text-align:center;line-height:1.4em;margin-bottom:7px;">
+                Use **Arrows** or **A/D** to move. <br> **Space** or **↑** to shoot.<br>
+                Survive and shoot down ALL enemies!
+            </div>
+            <canvas id="shooterCanvas" width="320" height="440"></canvas>
+            <div id="shooterScore" class="shooter-score">Score: 0</div>
+            <button class="pixel-btn" onclick="startGame()">▶️ Restart Game</button>
+        </div>
+
+        <div align="center" style="margin-top:12px;">
+            <img src="https://www.gifss.com/computers/old/gifss.com-old-3.gif" width="32">
+            <a href="games.html" class="pixel-btn">← Back to Mini Games</a>
+        </div>
     </div>
-    <hr class="pixel-hr">
-    <div class="navigation">
-      <a href="index.html">🏠 HOME</a> |
-      <a href="games.html" class="pixel-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Terminal_icon_icon.svg/1024px-Terminal_icon_icon.svg.png" width="20" style="vertical-align:middle;margin-right:5px;">
-        🎮 Mini Games
-      </a> |
-      <a href="chat.html" class="pixel-btn">
-        <img src="https://www.gifss.com/computers/old/gifss.com-old-3.gif" width="20" style="vertical-align:middle;margin-right:5px;">
-        Retro Chat
-      </a> |
-      <a href="donate.html" class="pixel-btn">💸 Donate</a>
-    </div>
-    <hr class="pixel-hr" />
+    <script>
+        const cvs = document.getElementById('shooterCanvas');
+        const ctx = cvs.getContext('2d');
+        const SCORE_DISPLAY = document.getElementById('shooterScore');
+        const BULLET_LIMIT = 3;
+        const SHIP_COLOR = "#0ff";
+        const THRUSTER_COLOR = "#fff36f";
+        const BULLET_COLOR = "#ff0";
+        const ENEMY_COLOR = "#fa2";
+        const GAME_BG = "#1b1b2c";
+        const WIN_COLOR = "#9f0";
+        const LOSE_COLOR = "#f44";
 
-    <div class="shooter-frame">
-      <div style="color:#fff36f;font-family:'Consolas';text-align:center;line-height:1.4em;margin-bottom:7px;">
-        Use arrows or A/D to move. <br> Space or ↑ to shoot.<br>
-        Survive and shoot down ALL enemies!
-      </div>
-      <canvas id="shooterCanvas" width="320" height="440"></canvas>
-      <div id="shooterScore" class="shooter-score">Score: 0</div>
-      <button class="pixel-btn" onclick="startGame()">Restart</button>
-    </div>
+        let ship, bullets, enemies, keys, score, gameOver, gameLoopInterval;
 
-    <div align="center" style="margin-top:12px;">
-      <img src="https://www.gifss.com/computers/old/gifss.com-old-3.gif" width="32">
-      <a href="games.html" class="pixel-btn">← Back to Mini Games</a>
-    </div>
-  </div>
-  <script>
-    // Простая Space Invaders-стрелялка
-    const cvs = document.getElementById('shooterCanvas'),
-          ctx = cvs.getContext('2d');
-    let ship, bullets, enemies, keys, score, gameOver, gameLoopInterval;
-
-    function startGame() {
-      ship = { x: 145, y: 400, w: 30, h: 12 };
-      bullets = [];
-      enemies = [];
-      keys = {};
-      score = 0;
-      gameOver = false;
-      document.getElementById('shooterScore').textContent = "Score: 0";
-      for(let r=0;r<3;r++)
-        for(let c=0;c<7;c++)
-          enemies.push({ x: 25+c*40, y: 40+r*35, w:28, h:16, dx: (Math.random()>0.5?1:-1)*1.2 });
-      clearInterval(gameLoopInterval);
-      gameLoopInterval = setInterval(gameLoop, 20);
-    }
-
-    function drawShip() {
-      ctx.fillStyle="#0ff";
-      ctx.fillRect(ship.x, ship.y, ship.w, ship.h);
-      ctx.fillStyle="#fff36f";
-      ctx.fillRect(ship.x+11, ship.y-10,8,10);
-    }
-
-    function drawBullets() {
-      ctx.fillStyle="#ff0";
-      bullets.forEach(b=>ctx.fillRect(b.x,b.y,4,12));
-    }
-
-    function drawEnemies() {
-      ctx.fillStyle="#fa2";
-      enemies.forEach(e=> {
-        ctx.fillRect(e.x,e.y,e.w,e.h);
-        ctx.fillStyle="#69f6";
-        ctx.fillRect(e.x+7,e.y+4,5,5);
-        ctx.fillStyle="#fa2";
-      });
-    }
-
-    function moveShip() {
-      if (keys['ArrowLeft']||keys['a']) { ship.x -= 5; if(ship.x<0)ship.x=0;}
-      if (keys['ArrowRight']||keys['d']) { ship.x += 5; if(ship.x>cvs.width-ship.w)ship.x=cvs.width-ship.w;}
-    }
-
-    function moveBullets() {
-      bullets.forEach(b=>b.y-=8);
-      for(let i=bullets.length-1;i>=0;i--)
-        if(bullets[i].y<-15)bullets.splice(i,1);
-    }
-
-    function moveEnemies() {
-      enemies.forEach(e=> { e.x+=e.dx; if(e.x<0||e.x>cvs.width-e.w) e.dx*=-1; });
-      // enemies move down sometimes
-      if(Math.random()<0.01)
-        enemies.forEach(e=>e.y+=24);
-    }
-
-    function detectCollisions() {
-      for(let i=bullets.length-1;i>=0;i--) {
-        for(let j=enemies.length-1;j>=0;j--) {
-          let b=bullets[i],e=enemies[j];
-          if(b.x<e.x+e.w && b.x+4>e.x && b.y<e.y+e.h && b.y+12>e.y) {
-            enemies.splice(j,1);
-            bullets.splice(i,1);
-            score++;
-            document.getElementById('shooterScore').textContent="Score: "+score;
-            break;
-          }
+        function startGame() {
+            ship = { x: 145, y: 400, w: 30, h: 12 };
+            bullets = [];
+            enemies = [];
+            keys = {};
+            score = 0;
+            gameOver = false;
+            SCORE_DISPLAY.textContent = "Score: 0";
+            
+            // Создание врагов 3x7
+            for(let r = 0; r < 3; r++) {
+                for(let c = 0; c < 7; c++) {
+                    // Случайное направление для разнообразия
+                    const initial_dx = (Math.random() > 0.5 ? 1 : -1) * 1.2;
+                    enemies.push({ x: 25 + c * 40, y: 40 + r * 35, w: 28, h: 16, dx: initial_dx });
+                }
+            }
+            
+            clearInterval(gameLoopInterval);
+            gameLoopInterval = setInterval(gameLoop, 20);
         }
-      }
-      // Enemy hit ship?
-      for(let e of enemies) {
-        if(e.y+e.h>ship.y && e.x<ship.x+ship.w && e.x+e.w>ship.x) {
-          gameOver = true;
+
+        // --- Функции отрисовки ---
+
+        function drawShip() {
+            // Основной корпус корабля
+            ctx.fillStyle = SHIP_COLOR;
+            ctx.fillRect(ship.x, ship.y, ship.w, ship.h);
+            // Сопло (тяга)
+            ctx.fillStyle = THRUSTER_COLOR;
+            ctx.fillRect(ship.x + 11, ship.y - 10, 8, 10);
         }
-      }
-    }
 
-    function gameLoop() {
-      ctx.fillStyle="#1b1b2c";
-      ctx.fillRect(0,0,cvs.width,cvs.height);
-      moveShip();
-      drawShip();
-      moveEnemies();
-      drawEnemies();
-      moveBullets();
-      drawBullets();
-      detectCollisions();
-      if(enemies.length===0) {
-        ctx.fillStyle="#9f0";
-        ctx.font="22px monospace";
-        ctx.textAlign="center";
-        ctx.fillText("You WIN!",cvs.width/2,220);
-        clearInterval(gameLoopInterval);
-      }
-      if(gameOver) {
-        ctx.fillStyle="#f44";
-        ctx.font="22px monospace";
-        ctx.textAlign="center";
-        ctx.fillText("Game Over!",cvs.width/2,220);
-        clearInterval(gameLoopInterval);
-      }
-    }
+        function drawBullets() {
+            ctx.fillStyle = BULLET_COLOR;
+            bullets.forEach(b => ctx.fillRect(b.x, b.y, 4, 12));
+        }
 
-    document.addEventListener('keydown', function(e) {
-      keys[e.key]=true;
-      if((e.key===" "||e.key==="ArrowUp")&&bullets.length<3) {
-        bullets.push({x:ship.x+13,y:ship.y-8});
-      }
-    });
-    document.addEventListener('keyup',function(e){
-      keys[e.key]=false;
-    });
+        function drawEnemies() {
+            enemies.forEach(e => {
+                // Основной корпус врага
+                ctx.fillStyle = ENEMY_COLOR;
+                ctx.fillRect(e.x, e.y, e.w, e.h);
+                // Деталь/глаз (псевдо-пиксель)
+                ctx.fillStyle = "#69f6";
+                ctx.fillRect(e.x + 7, e.y + 4, 5, 5);
+                ctx.fillRect(e.x + e.w - 12, e.y + 4, 5, 5);
+            });
+        }
 
-    startGame();
-    window.startGame = startGame;
-  </script>
+        // --- Функции движения и логики ---
+
+        function moveShip() {
+            const speed = 5;
+            if (keys['ArrowLeft'] || keys['a']) { ship.x -= speed; }
+            if (keys['ArrowRight'] || keys['d']) { ship.x += speed; }
+            
+            // Ограничение движения корабля
+            if (ship.x < 0) ship.x = 0;
+            if (ship.x > cvs.width - ship.w) ship.x = cvs.width - ship.w;
+        }
+
+        function moveBullets() {
+            for(let i = bullets.length - 1; i >= 0; i--) {
+                bullets[i].y -= 8;
+                // Удалить пули, вышедшие за пределы экрана
+                if(bullets[i].y < -15) {
+                    bullets.splice(i, 1);
+                }
+            }
+        }
+
+        function moveEnemies() {
+            let hitWall = false;
+            enemies.forEach(e => { 
+                e.x += e.dx;
+                if(e.x < 0 || e.x > cvs.width - e.w) {
+                    hitWall = true; // Запоминаем, что кто-то ударился
+                }
+            });
+
+            if (hitWall) {
+                // Изменить направление и сдвинуться вниз, если какой-либо враг ударился о стену
+                enemies.forEach(e => { 
+                    e.dx *= -1;
+                    e.y += 18; // Сдвиг вниз
+                });
+            }
+        }
+
+        function detectCollisions() {
+            for(let i = bullets.length - 1; i >= 0; i--) {
+                for(let j = enemies.length - 1; j >= 0; j--) {
+                    let b = bullets[i], e = enemies[j];
+                    // Обнаружение столкновений (AABB)
+                    if(b.x < e.x + e.w && b.x + 4 > e.x && b.y < e.y + e.h && b.y + 12 > e.y) {
+                        enemies.splice(j, 1); // Удалить врага
+                        bullets.splice(i, 1); // Удалить пулю
+                        score++;
+                        SCORE_DISPLAY.textContent = "Score: " + score;
+                        break; // Пуля может уничтожить только одного врага
+                    }
+                }
+            }
+            
+            // Столкновение врага с кораблем
+            for(let e of enemies) {
+                if(e.y + e.h > ship.y && e.x < ship.x + ship.w && e.x + e.w > ship.x) {
+                    gameOver = true;
+                    break;
+                }
+            }
+        }
+
+        // --- Главный цикл игры ---
+
+        function gameLoop() {
+            // Очистка экрана
+            ctx.fillStyle = GAME_BG;
+            ctx.fillRect(0, 0, cvs.width, cvs.height);
+            
+            if (gameOver) {
+                ctx.fillStyle = LOSE_COLOR;
+                ctx.font = "bold 24px 'Consolas', monospace";
+                ctx.textAlign = "center";
+                ctx.fillText("💀 Game Over! 💀", cvs.width / 2, 220);
+                clearInterval(gameLoopInterval);
+                return;
+            }
+
+            if (enemies.length === 0) {
+                ctx.fillStyle = WIN_COLOR;
+                ctx.font = "bold 24px 'Consolas', monospace";
+                ctx.textAlign = "center";
+                ctx.fillText("🏆 You WIN! 🏆", cvs.width / 2, 220);
+                clearInterval(gameLoopInterval);
+                return;
+            }
+
+            // Обновление состояния
+            moveShip();
+            moveEnemies();
+            moveBullets();
+            detectCollisions();
+
+            // Отрисовка
+            drawShip();
+            drawEnemies();
+            drawBullets();
+        }
+
+        // --- Обработчики событий ---
+
+        document.addEventListener('keydown', function(e) {
+            keys[e.key] = true;
+            
+            // Выстрел
+            if((e.key === " " || e.key === "ArrowUp") && bullets.length < BULLET_LIMIT) {
+                // Не добавляем пулю сразу, если игра окончена
+                if (!gameOver) {
+                    bullets.push({ x: ship.x + 13, y: ship.y - 8 });
+                }
+                e.preventDefault(); // Предотвратить прокрутку страницы пробелом
+            }
+        });
+
+        document.addEventListener('keyup', function(e){
+            keys[e.key] = false;
+        });
+
+        // Запуск игры при загрузке
+        startGame();
+        window.startGame = startGame; // Доступно для кнопки
+    </script>
 </body>
 </html>
