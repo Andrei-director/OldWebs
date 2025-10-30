@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Games – OldWebs Arcade</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .games-catalog {
+      margin: 38px auto 12px auto;
+      max-width: 900px;
+    }
+    .game-card {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      border: 2.5px dashed #0ff;
+      border-radius: 11px;
+      background: #18183a;
+      margin-bottom: 26px;
+      padding: 14px 18px;
+      box-shadow: 0 0 10px #1affb3c0;
+    }
+    .game-card img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-right: 10px;
+      border-radius: 6px;
+      background: #242444;
+      image-rendering: pixelated;
+      border: 2px solid #0ff;
+    }
+    .game-card .game-info {
+      flex: 1;
+    }
+    .game-card h3 {
+      margin: 0 0 6px 0;
+      font-size: 1.16em;
+      color: #39ff14;
+      font-family: 'Consolas', monospace;
+      text-shadow: 0 0 10px #0ff9;
+    }
+    .game-card .pixel-btn {
+      margin-left: 10px;
+      font-size: 1em;
+      padding: 7px 20px;
+      min-width: 80px;
+    }
+    .back-nav {
+      margin: 24px 0 0 0;
+      text-align: center;
+    }
+    .retro-frame {margin-bottom:10px;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="retro-frame">
+      <marquee scrollamount="13" behavior="alternate">
+        <span class="blink">🎮 Mini Games – OldWebs Arcade 🎮</span>
+      </marquee>
+    </div>
+    <hr class="pixel-hr">
+    <div class="navigation">
+      <a href="index.html">🏠 HOME</a> |
+      <a href="games.html" class="pixel-btn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Terminal_icon_icon.svg/1024px-Terminal_icon_icon.svg.png" width="20" style="vertical-align:middle;margin-right:5px;">
+        🎮 Mini Games
+      </a> |
+      <a href="chat.html" class="pixel-btn">
+        <img src="https://www.gifss.com/computers/old/gifss.com-old-3.gif" width="20" style="vertical-align:middle;margin-right:5px;">
+        Retro Chat
+      </a> |
+      <a href="donate.html" class="pixel-btn">💸 Donate</a>
+    </div>
+    <hr class="pixel-hr" />
+
+    <div class="games-catalog">
+      <!-- GAME 1: ASCII Art Game -->
+      <div class="game-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Terminal_icon_icon.svg/1024px-Terminal_icon_icon.svg.png" alt="ASCII Art">
+        <div class="game-info">
+          <h3>ASCII Art Game</h3>
+          <div>Guess the old-school ASCII drawing! Type your answer and win nostalgia points.</div>
+        </div>
+        <a href="game-ascii.html" class="pixel-btn">Play</a>
+      </div>
+      <!-- GAME 2: Snake (DOS) -->
+      <div class="game-card">
+        <img src="https://cdn.pixabay.com/photo/2014/04/03/11/51/snake-314072_1280.png" alt="Snake">
+        <div class="game-info">
+          <h3>Snake (DOS)</h3>
+          <div>Eat apples, grow your snake, don’t crash — just like on a DOS PC!</div>
+        </div>
+        <a href="game-snake.html" class="pixel-btn">Play</a>
+      </div>
+      <!-- Add more games here as you like! -->
+    </div>
+
+    <div class="back-nav">
+      <img src="https://www.gifss.com/computers/old/gifss.com-old-3.gif" width="32">
+      <a href="index.html" class="pixel-btn">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
+
