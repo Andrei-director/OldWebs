@@ -2,55 +2,59 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Space Shooter (DOS style) – OldWebs Mini Games</title>
+  <title>Asteroids Advanced – OldWebs Mini Games</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .shooter-frame {
+    .asteroids-frame {
       margin:30px auto 20px auto;
-      background:#111125;
+      background:#181831;
       border:5px double #0ff;
       border-radius:13px;
       box-shadow:0 2px 22px #13e8f855;
-      max-width:480px;
+      max-width:540px;
       min-width:260px;
       padding:26px 24px 18px 24px;
       display:flex; flex-direction:column; align-items:center;
     }
-    #shooterCanvas {
-      background: #1b1b2c;
+    #asteroidsCanvas {
+      background: #181823;
       margin:0;
-      box-shadow:0 0 18px #4ef6, 0 0 0 4px #212 inset;
+      box-shadow:0 0 18px #4ef6, 0 0 0 5px #222 inset;
       border:2px inset #12ff;
       border-radius:12px;
       outline:1px solid #0ff;
-      width:320px;
-      height:440px;
+      width:460px;
+      height:420px;
       display:block;
       margin-bottom: 10px;
+      image-rendering: pixelated;
     }
-    .shooter-score {
+    .asteroids-score {
       color: #ff0;
       background: #26262f;
       font-family: monospace;
-      font-size: 1.08em;
+      font-size: 1.10em;
       border-radius:3px;
       margin-bottom:14px;
       margin-top:7px;
       padding:3px 10px 2px 10px;
       letter-spacing:2px;
       border: 2px solid #208888;
-      box-shadow: 0 0 6px #111B;
+      box-shadow: 0 0 7px #111B;
       display:inline-block;
     }
     .pixel-btn {margin-top: 7px;}
     .retro-frame {margin-bottom:10px;}
+    @media (max-width:550px){
+      #asteroidsCanvas { width:95vw !important; height:65vw !important;}
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="retro-frame">
       <marquee scrollamount="12" behavior="alternate">
-        <span class="blink">👾 Space Shooter (DOS Edition) – Mini Game 👾</span>
+        <span class="blink">🪐 Asteroids Advanced (Retro) – Mini Game 🪐</span>
       </marquee>
     </div>
     <hr class="pixel-hr">
@@ -68,14 +72,16 @@
     </div>
     <hr class="pixel-hr" />
 
-    <div class="shooter-frame">
+    <div class="asteroids-frame">
       <div style="color:#fff36f;font-family:'Consolas';text-align:center;line-height:1.4em;margin-bottom:7px;">
-        Use arrows or A/D to move. <br> Space or ↑ to shoot.<br>
-        Survive and shoot down ALL enemies!
+        ← / → or A/D – Rotate<br>
+        ↑ or W – Thrust<br>
+        Space – Shoot<br>
+        Survive as long as you can, dodge asteroids & destroy them!
       </div>
-      <canvas id="shooterCanvas" width="320" height="440"></canvas>
-      <div id="shooterScore" class="shooter-score">Score: 0</div>
-      <button class="pixel-btn" onclick="startGame()">Restart</button>
+      <canvas id="asteroidsCanvas" width="460" height="420"></canvas>
+      <div id="asteroidsScore" class="asteroids-score">Score: 0</div>
+      <button class="pixel-btn" onclick="resetGame()">Restart</button>
     </div>
 
     <div align="center" style="margin-top:12px;">
@@ -84,125 +90,192 @@
     </div>
   </div>
   <script>
-    // Простая Space Invaders-стрелялка
-    const cvs = document.getElementById('shooterCanvas'),
-          ctx = cvs.getContext('2d');
-    let ship, bullets, enemies, keys, score, gameOver, gameLoopInterval;
+    const cvs = document.getElementById('asteroidsCanvas'), ctx = cvs.getContext('2d');
+    let ship, bullets, asteroids, keys, score, gameOver, particles, frameId;
 
-    function startGame() {
-      ship = { x: 145, y: 400, w: 30, h: 12 };
+    function resetGame() {
+      ship = { x: cvs.width/2, y: cvs.height/2, r: 0, vx: 0, vy: 0, alive: true };
       bullets = [];
-      enemies = [];
+      asteroids = [];
       keys = {};
       score = 0;
       gameOver = false;
-      document.getElementById('shooterScore').textContent = "Score: 0";
-      for(let r=0;r<3;r++)
-        for(let c=0;c<7;c++)
-          enemies.push({ x: 25+c*40, y: 40+r*35, w:28, h:16, dx: (Math.random()>0.5?1:-1)*1.2 });
-      clearInterval(gameLoopInterval);
-      gameLoopInterval = setInterval(gameLoop, 20);
+      particles = [];
+      document.getElementById('asteroidsScore').textContent = "Score: 0";
+      spawnAsteroids(6);
+      cancelAnimationFrame(frameId);
+      gameLoop();
     }
-
-    function drawShip() {
+    function spawnAsteroids(n){
+      asteroids = [];
+      for(let i=0;i<n;i++){
+        let r=26+Math.random()*36;
+        let angle = Math.random()*2*Math.PI;
+        asteroids.push({
+          x: Math.random()*cvs.width, y: Math.random()*cvs.height,
+          r, vx: Math.cos(angle)*(2+Math.random()*1.6), vy: Math.sin(angle)*(2+Math.random()*1.6), hp: Math.ceil(r/22)
+        });
+      }
+    }
+    function drawShip(s) {
+      ctx.save();
+      ctx.translate(s.x, s.y);
+      ctx.rotate(s.r);
+      ctx.strokeStyle = "#fffa80";
+      ctx.lineWidth = 2.3;
+      ctx.beginPath(); // Triangle
+      ctx.moveTo(18, 0);
+      ctx.lineTo(-12, 11);
+      ctx.lineTo(-8, 0);
+      ctx.lineTo(-12, -11);
+      ctx.closePath();
+      ctx.stroke();
+      // Cabin
+      ctx.beginPath();
+      ctx.arc(4, 0, 4, 0, 2*Math.PI);
+      ctx.strokeStyle="#0ff";
+      ctx.lineWidth=1.3;
+      ctx.stroke();
+      ctx.restore();
+    }
+    function drawAsteroid(a) {
+      ctx.save();
+      ctx.translate(a.x, a.y);
+      ctx.rotate(a.r || 0);
+      ctx.strokeStyle = "#bbb";
+      ctx.lineWidth = 2.1;
+      ctx.beginPath();
+      for(let i=0;i<8;i++){
+        let ang = i*Math.PI/4;
+        let rad = a.r*0.92 + Math.sin(a.r+i*1.32)*6 + (Math.random()-0.5)*4;
+        ctx.lineTo(Math.cos(ang)*rad, Math.sin(ang)*rad);
+      }
+      ctx.closePath();
+      ctx.stroke();
+      ctx.restore();
+    }
+    function drawBullet(b){ ctx.fillStyle="#0ef"; ctx.beginPath(); ctx.arc(b.x,b.y,3,0,2*Math.PI); ctx.fill(); }
+    function drawParticle(p){
+      ctx.globalAlpha = p.a;
+      ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,2*Math.PI); ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+    function draw() {
+      ctx.fillStyle="#181823"; ctx.fillRect(0,0,cvs.width,cvs.height);
+      if(ship.alive) drawShip(ship);
+      asteroids.forEach(drawAsteroid);
+      bullets.forEach(drawBullet);
+      particles.forEach(drawParticle);
+      // HUD
       ctx.fillStyle="#0ff";
-      ctx.fillRect(ship.x, ship.y, ship.w, ship.h);
-      ctx.fillStyle="#fff36f";
-      ctx.fillRect(ship.x+11, ship.y-10,8,10);
+      ctx.font="16px monospace";
+      ctx.fillText("Score: "+score,10,22);
     }
-
-    function drawBullets() {
-      ctx.fillStyle="#ff0";
-      bullets.forEach(b=>ctx.fillRect(b.x,b.y,4,12));
-    }
-
-    function drawEnemies() {
-      ctx.fillStyle="#fa2";
-      enemies.forEach(e=> {
-        ctx.fillRect(e.x,e.y,e.w,e.h);
-        ctx.fillStyle="#69f6";
-        ctx.fillRect(e.x+7,e.y+4,5,5);
-        ctx.fillStyle="#fa2";
+    function update(){
+      // Ship motion
+      if((keys['ArrowLeft']||keys['a'])) ship.r-=0.07;
+      if((keys['ArrowRight']||keys['d'])) ship.r+=0.07;
+      if((keys['ArrowUp']||keys['w'])) {
+        ship.vx+=Math.cos(ship.r)*0.18; ship.vy+=Math.sin(ship.r)*0.18;
+        // exhaust
+        particles.push({x:ship.x-Math.cos(ship.r)*19, y:ship.y-Math.sin(ship.r)*19, r:2+cRnd(2), c:'#ff8f00', a:0.4+Math.random()*0.4, vx:-Math.cos(ship.r)*2+cRnd(0.8),vy:-Math.sin(ship.r)*2+cRnd(0.8)});
+      }
+      ship.x = (ship.x+ship.vx+cvs.width)%cvs.width;
+      ship.y = (ship.y+ship.vy+cvs.height)%cvs.height;
+      ship.vx*=0.993; ship.vy*=0.993;
+      // Bullets
+      bullets.forEach(b=>{
+        b.x=(b.x+b.vx+cvs.width)%cvs.width;
+        b.y=(b.y+b.vy+cvs.height)%cvs.height;
+        b.life--;
       });
-    }
-
-    function moveShip() {
-      if (keys['ArrowLeft']||keys['a']) { ship.x -= 5; if(ship.x<0)ship.x=0;}
-      if (keys['ArrowRight']||keys['d']) { ship.x += 5; if(ship.x>cvs.width-ship.w)ship.x=cvs.width-ship.w;}
-    }
-
-    function moveBullets() {
-      bullets.forEach(b=>b.y-=8);
-      for(let i=bullets.length-1;i>=0;i--)
-        if(bullets[i].y<-15)bullets.splice(i,1);
-    }
-
-    function moveEnemies() {
-      enemies.forEach(e=> { e.x+=e.dx; if(e.x<0||e.x>cvs.width-e.w) e.dx*=-1; });
-      // enemies move down sometimes
-      if(Math.random()<0.01)
-        enemies.forEach(e=>e.y+=24);
-    }
-
-    function detectCollisions() {
+      for(let i=bullets.length-1;i>=0;i--) if(bullets[i].life<0) bullets.splice(i,1);
+      // Asteroids
+      asteroids.forEach(a=> {
+        a.x=(a.x+a.vx+cvs.width)%cvs.width;
+        a.y=(a.y+a.vy+cvs.height)%cvs.height;
+        a.r+=0.012;
+      });
+      // Particles
+      for(let i=particles.length-1;i>=0;i--){
+        let p=particles[i];
+        p.x+=p.vx||0; p.y+=p.vy||0; p.a-=0.018;
+        if(p.a<0) particles.splice(i,1);
+      }
+      // Bullet/Asteroid collision
       for(let i=bullets.length-1;i>=0;i--) {
-        for(let j=enemies.length-1;j>=0;j--) {
-          let b=bullets[i],e=enemies[j];
-          if(b.x<e.x+e.w && b.x+4>e.x && b.y<e.y+e.h && b.y+12>e.y) {
-            enemies.splice(j,1);
-            bullets.splice(i,1);
-            score++;
-            document.getElementById('shooterScore').textContent="Score: "+score;
-            break;
+        let b=bullets[i], hitIdx=-1;
+        for(let j=0;j<asteroids.length;j++) {
+          let a=asteroids[j];
+          let dx = (b.x - a.x), dy=(b.y - a.y), dist = Math.sqrt(dx*dx+dy*dy);
+          if(dist<a.r) { hitIdx=j; break;}
+        }
+        if(hitIdx>-1){
+          bullets.splice(i,1);
+          let a=asteroids[hitIdx];
+          score+=10*a.hp;
+          document.getElementById('asteroidsScore').textContent = "Score: "+score;
+          boom(a.x,a.y,a.r,asteroids[hitIdx].hp);
+          // split
+          if(a.r>27) {
+            asteroids.push({x:a.x+8,y:a.y+8,r:a.r/1.5,vx:-a.vy,vy:a.vx,hp:a.hp-1});
+            asteroids.push({x:a.x-8,y:a.y-9,r:a.r/1.7,vx:a.vy,vy:-a.vx,hp:a.hp-1});
           }
+          asteroids.splice(hitIdx,1);
         }
       }
-      // Enemy hit ship?
-      for(let e of enemies) {
-        if(e.y+e.h>ship.y && e.x<ship.x+ship.w && e.x+e.w>ship.x) {
-          gameOver = true;
+      // Ship/Asteroid collision
+      for(let a of asteroids) {
+        let dx=ship.x-a.x, dy=ship.y-a.y, dist=Math.sqrt(dx*dx+dy*dy);
+        if(ship.alive && dist<a.r+13) {
+          ship.alive=false; gameOver=true;
+          boom(ship.x,ship.y,30,6);
+          setTimeout(()=>{},400);
         }
+      }
+      // Respawn if win
+      if(asteroids.length==0 && ship.alive) {
+        spawnAsteroids(6+Math.floor(score/120));
       }
     }
-
+    function cRnd(n){ return (Math.random()-0.5)*n;}
+    function boom(x,y,R,n) {
+      for(let i=0;i<6+Math.random()*8;i++)
+        particles.push({x:x+cRnd(R),y:y+cRnd(R),r:2+cRnd(2),a:0.7,c:'#fff77c',vx:cRnd(2),vy:cRnd(2)});
+      for(let i=0;i<n;i++)
+        particles.push({x:x+cRnd(R),y:y+cRnd(R),r:6+aRnd(3),a:0.6,c:'#ff4b00',vx:cRnd(3.5),vy:cRnd(3.5)});
+    }
+    function aRnd(n){return Math.random()*n;}
+    function shoot() {
+      if(!ship.alive)return;
+      let s=ship;
+      bullets.push({x:s.x+Math.cos(s.r)*19,y:s.y+Math.sin(s.r)*19,vx:Math.cos(s.r)*6+s.vx,vy:Math.sin(s.r)*6+s.vy,life:40});
+    }
     function gameLoop() {
-      ctx.fillStyle="#1b1b2c";
-      ctx.fillRect(0,0,cvs.width,cvs.height);
-      moveShip();
-      drawShip();
-      moveEnemies();
-      drawEnemies();
-      moveBullets();
-      drawBullets();
-      detectCollisions();
-      if(enemies.length===0) {
-        ctx.fillStyle="#9f0";
-        ctx.font="22px monospace";
-        ctx.textAlign="center";
-        ctx.fillText("You WIN!",cvs.width/2,220);
-        clearInterval(gameLoopInterval);
-      }
+      if(!gameOver) update();
+      draw();
       if(gameOver) {
         ctx.fillStyle="#f44";
-        ctx.font="22px monospace";
+        ctx.font="28px monospace";
         ctx.textAlign="center";
-        ctx.fillText("Game Over!",cvs.width/2,220);
-        clearInterval(gameLoopInterval);
-      }
+        ctx.fillText("Game Over!",cvs.width/2, cvs.height/2);
+        ctx.font="16px monospace";
+        ctx.fillStyle="#fff";
+        ctx.fillText("Press Restart",cvs.width/2, cvs.height/2+22);
+        cancelAnimationFrame(frameId);
+      } else frameId = requestAnimationFrame(gameLoop);
     }
-
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown',function(e){
       keys[e.key]=true;
-      if((e.key===" "||e.key==="ArrowUp")&&bullets.length<3) {
-        bullets.push({x:ship.x+13,y:ship.y-8});
-      }
+      if(e.key===' '||e.key==='ArrowUp') shoot();
     });
     document.addEventListener('keyup',function(e){
       keys[e.key]=false;
     });
 
-    startGame();
-    window.startGame = startGame;
+    // Запуск игры из кнопки и при загрузке
+    resetGame();
+    window.resetGame = resetGame;
   </script>
 </body>
 </html>
