@@ -1,383 +1,101 @@
-/* Reset basic */
-body, h1, h2, h3, p, ul, li, a, form, button {
-  margin: 0;
-  padding: 0;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-}
-
-/* Body */
+/* --- Global Reset & Core Web 1.0 Aesthetics --- */
 body {
-  background: linear-gradient(120deg, #00f, #0ff);
-  color: #fff;
-  text-align: center;
+    background-color: #000000; /* Черный экран, основа ретро-терминала */
+    color: #00FF00; /* Неоновый зеленый текст */
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 20px 0; /* Вертикальный отступ для центрирования */
+    font-size: 14px; /* Мелкий шрифт для аутентичности */
+    line-height: 1.5;
 }
 
-/* Hero Block */
-#hero {
-  padding: 100px 20px;
-  position: relative;
+/* Контейнер: Центрирование и ограниченная ширина */
+.container {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 0 10px;
+    border: 1px solid #00FF00; /* Зеленая рамка вокруг контента */
+    box-shadow: 0 0 10px #00FF00; /* Эффект неонового свечения */
 }
 
-#hero h1 {
-  font-size: 4em;
-  text-shadow: 2px 2px #000;
-  margin-bottom: 20px;
+/* Заголовки */
+h1 {
+    color: #FF00FF; /* Пурпурный акцент для главного заголовка */
+    text-align: center;
+    text-shadow: 0 0 5px #FF00FF; /* Эффект свечения */
+    border-bottom: 2px solid #FF00FF;
+    padding-bottom: 10px;
+}
+h3 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #00FFFF; /* Голубой для заголовков постов */
 }
 
-#hero p {
-  font-size: 1.5em;
-  margin-bottom: 30px;
+/* Горизонтальная линия */
+hr {
+    border: none;
+    border-top: 1px dashed #00FF00; /* Пунктирная зеленая линия */
+    margin: 15px 0;
 }
 
-.enter-btn {
-  display: inline-block;
-  padding: 15px 30px;
-  background-color: #ff0;
-  color: #000;
-  font-weight: bold;
-  text-decoration: none;
-  border: 3px solid #000;
-  transition: all 0.3s;
+/* Гиперссылки */
+a {
+    color: #00FF00; /* По умолчанию зеленый */
+    text-decoration: none;
+}
+a:hover {
+    color: #FF00FF; /* Пурпурный при наведении */
+    text-decoration: underline;
 }
 
-.enter-btn:hover {
-  background-color: #fff;
-  color: #f00;
-  transform: scale(1.1);
+/* Навигация */
+.navigation {
+    text-align: center;
+    padding: 10px 0;
+}
+.navigation a {
+    padding: 0 8px;
+    white-space: nowrap;
+}
+.ai-link {
+    font-weight: bold;
+    color: #00FFFF; /* Выделить ссылку на AI */
 }
 
-.retro-gif img {
-  margin-top: 30px;
-  width: 150px;
-  animation: float 3s infinite alternate;
+/* Список постов */
+.post-item {
+    padding: 10px 0;
+    /* Убираем нижнюю линию, так как ее уже дает HR */
+}
+.post-item h3 a {
+    color: #00FFFF;
+    text-decoration: none;
+}
+.post-item p {
+    margin: 3px 0;
+    font-size: 13px;
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-10px); }
+/* Анимация мигающего текста для привлечения внимания (MUST READ) */
+.post-item h3 span {
+    font-weight: bold;
+    animation: blink-effect 1s step-end infinite;
 }
 
-/* Features Block */
-#features {
-  padding: 50px 20px;
-  background-color: #222;
+@keyframes blink-effect {
+    50% { opacity: 0; }
 }
 
-#features h2 {
-  margin-bottom: 20px;
+/* Адаптивность для мобильных устройств */
+@media (max-width: 680px) {
+    .container {
+        border: none;
+        padding: 0 5px;
+        max-width: 100%;
+        box-shadow: none;
+    }
+    body {
+        padding: 10px 0;
+    }
 }
-
-#features ul li {
-  list-style: none;
-  font-size: 1.2em;
-  margin: 10px 0;
-}
-
-/* Quizzes Preview */
-#quizzes {
-  padding: 50px 20px;
-  background-color: #444;
-}
-
-.quiz-card {
-  background-color: #666;
-  padding: 20px;
-  margin: 20px auto;
-  width: 300px;
-  border: 2px solid #fff;
-}
-
-.quiz-card h3 {
-  margin-bottom: 10px;
-}
-
-.quiz-card a {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #ff0;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-  border: 2px solid #000;
-}
-
-.quiz-card a:hover {
-  background-color: #fff;
-  color: #f00;
-}
-
-/* Interactive Quiz */
-section[id^="quiz-"] {
-  padding: 50px 20px;
-  background-color: #333;
-}
-
-section[id^="quiz-"] h2 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
-}
-
-section[id^="quiz-"] form {
-  display: inline-block;
-  text-align: left;
-  background-color: #555;
-  padding: 20px;
-  border: 2px solid #fff;
-}
-
-section[id^="quiz-"] button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  font-weight: bold;
-  background-color: #ff0;
-  color: #000;
-  border: 2px solid #000;
-  cursor: pointer;
-}
-
-section[id^="quiz-"] button:hover {
-  background-color: #fff;
-  color: #f00;
-}
-
-/* Footer */
-footer {
-  padding: 30px 20px;
-  background-color: #111;
-  font-size: 0.9em;
-}
-/* Reset basic */
-body, h1, h2, h3, p, ul, li, a, form, button {
-  margin: 0;
-  padding: 0;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-}
-
-/* Body */
-body {
-  background: linear-gradient(120deg, #00f, #0ff);
-  color: #fff;
-  text-align: center;
-}
-
-/* Hero Block */
-#hero {
-  padding: 100px 20px;
-  position: relative;
-}
-
-#hero h1 {
-  font-size: 4em;
-  text-shadow: 2px 2px #000;
-  margin-bottom: 20px;
-}
-
-#hero p {
-  font-size: 1.5em;
-  margin-bottom: 30px;
-}
-
-.enter-btn {
-  display: inline-block;
-  padding: 15px 30px;
-  background-color: #ff0;
-  color: #000;
-  font-weight: bold;
-  text-decoration: none;
-  border: 3px solid #000;
-  transition: all 0.3s;
-}
-
-.enter-btn:hover {
-  background-color: #fff;
-  color: #f00;
-  transform: scale(1.1);
-}
-
-.retro-gif img {
-  margin-top: 30px;
-  width: 150px;
-  animation: float 3s infinite alternate;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-10px); }
-}
-
-/* Features Block */
-#features {
-  padding: 50px 20px;
-  background-color: #222;
-}
-
-#features h2 {
-  margin-bottom: 20px;
-}
-
-#features ul li {
-  list-style: none;
-  font-size: 1.2em;
-  margin: 10px 0;
-}
-
-/* Quizzes Preview */
-#quizzes {
-  padding: 50px 20px;
-  background-color: #444;
-}
-
-.quiz-card {
-  background-color: #666;
-  padding: 20px;
-  margin: 20px auto;
-  width: 300px;
-  border: 2px solid #fff;
-}
-
-.quiz-card h3 {
-  margin-bottom: 10px;
-}
-
-.quiz-card a {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #ff0;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-  border: 2px solid #000;
-}
-
-.quiz-card a:hover {
-  background-color: #fff;
-  color: #f00;
-}
-
-/* Interactive Quiz */
-section[id^="quiz-"] {
-  padding: 50px 20px;
-  background-color: #333;
-}
-
-section[id^="quiz-"] h2 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
-}
-
-section[id^="quiz-"] form {
-  display: inline-block;
-  text-align: left;
-  background-color: #555;
-  padding: 20px;
-  border: 2px solid #fff;
-}
-
-section[id^="quiz-"] button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  font-weight: bold;
-  background-color: #ff0;
-  color: #000;
-  border: 2px solid #000;
-  cursor: pointer;
-}
-
-section[id^="quiz-"] button:hover {
-  background-color: #fff;
-  color: #f00;
-}
-
-/* Footer */
-footer {
-  padding: 30px 20px;
-  background-color: #111;
-  font-size: 0.9em;
-}
-/* Hover-анимация для кнопок Enter и Create Your Quiz */
-.enter-btn {
-  display: inline-block;
-  padding: 15px 30px;
-  background-color: #ff0;
-  color: #000;
-  font-weight: bold;
-  text-decoration: none;
-  border: 3px solid #000;
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-
-.enter-btn::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255,255,255,0.3);
-  transition: all 0.5s;
-}
-
-.enter-btn:hover::after {
-  left: 0;
-}
-
-.enter-btn:hover {
-  background-color: #fff;
-  color: #f00;
-  transform: scale(1.1);
-}
-
-/* Hover-анимация для карточек квизов */
-.quiz-card {
-  background-color: #666;
-  padding: 20px;
-  margin: 20px auto;
-  width: 300px;
-  border: 2px solid #fff;
-  transition: all 0.3s;
-}
-
-.quiz-card:hover {
-  background-color: #888;
-  transform: rotate(-1deg) scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
-/* Hover-анимация кнопок */
-.enter-btn {
-  display: inline-block;
-  padding: 15px 30px;
-  background-color: #ff0;
-  color: #000;
-  font-weight: bold;
-  text-decoration: none;
-  border: 3px solid #000;
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-.enter-btn::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255,255,255,0.3);
-  transition: all 0.5s;
-}
-.enter-btn:hover::after { left: 0; }
-.enter-btn:hover { background-color:#fff; color:#f00; transform:scale(1.1); }
-
-/* Hover-анимация карточек */
-.quiz-card {transition: all 0.3s;}
-.quiz-card:hover {transform: rotate(-1deg) scale(1.05); box-shadow:0 5px 15px rgba(0,0,0,0.5); background-color:#888;}
-
-/* Hero заголовок анимация */
-#hero h1 {animation:pulse 2s infinite;}
-@keyframes pulse {0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
-
-/* Sparkle GIF */
-.sparkle {width:100px; position:absolute; top:20px; right:20px; animation:spin 4s linear infinite;}
-@keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
